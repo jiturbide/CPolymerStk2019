@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Mi primera pagina HTML5</title>
+    <style media="screen">
+      p {
+        color : blue;
+      }
+      .saludo {
+        color: red;
+      }
+      .etiqueta {
+        color : brown;
+      }
+    </style>
+
+  </head>
+  <body>
+
+    <p class="saludo">Hola mundo HTML5 !</p>  <br/>
+    <p class="etiqueta">Dame tu nombre: </p><input type="text" name="txtNombre" value="Juanito">
+    <input type="button" name="btnAceptar" value="Aceptar">
+
+    <p id="despedida" > Good bye! </p>
+
+    <script type="text/javascript">
+      console.log("Cargando pagina ...");
+
+      var despedida = document.getElementById('despedida');
+      despedida.innerHTML = "Adios";
+
+    </script>
+  </body>
+</html>

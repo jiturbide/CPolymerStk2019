@@ -1,0 +1,54 @@
+
+Inscribirse en https://www.freecodecamp.org
+
+Completar los siguientes temas:
+
+Responsive Web Design Certification 
+Basic HTML and HTML5
+Basic CSS
+CSS Flexbox
+CSS Grid
+Javascript Algorithms And Data Structures Certification 
+Basic JavaScript
+ES6
+Debugging
+
+Polymer
+Video Tutoriales
+https://www.youtube.com/watch?v=MrC8o1H5fYU  
+https://www.youtube.com/watch?v=u1Ncjhk0--I
+https://www.youtube.com/watch?v=11MXOWOqEmc
+https://www.youtube.com/watch?v=ktoa0S6U4YM
+https://www.youtube.com/watch?v=VXYfAlABkn8
+Teoría
+Desde la página oficial de Polymer (https://polymer-library.polymer-project.org/2.0/docs/devguide/feature-overview)
+Ver los siguientes temas
+
+Tutorial: Build an element 
+1. Get set up 
+2. Add local DOM 
+3. Data binding & properties 
+4. React to input 
+5. Theming with custom properties
+
+Custom elements
+Custom element concepts
+Define an element
+Declare properties
+Shadow DOM & styling
+Shadow DOM concepts
+DOM templating
+Style shadow DOM
+Custom CSS properties
+Events
+Handle and fire events
+Gesture events
+
+
+Data system
+Data system concepts
+Work with object and array data
+Observers and computed properties
+Data binding
+Helper elements
+

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Ejemplo custom element 4</title>
+  </head>
+  <body>
+    <p>Ejemplo custom element 4</p>
+    <input type="text" value="0" id="txtCaja" onchange="f_actualizar();"></input>
+    <br/>
+    <x-counter value="5"></x-counter>
+
+    <script type="text/javascript">
+      const template = document.createElement('template');
+
+      template.innerHTML = `
+          <style>
+             button, p {
+               display: inline-block;
+             }
+          </style>
+          <button aria-label="decrement">-</button>
+          <p>0</p>
+          <button aria-label="increment">+</button>
+      `;
+
+      (function(customElements){
+        class XCounter extends HTMLElement {
+          constructor(){
+            super();
+            this._value = 0;
+            this.root = this.attachShadow({mode: 'open'});
+            this.root.appendChild(template.content.cloneNode(true));
+            this.valueElement = this.root.querySelector('p');
+            this.incrementButton = this.root.querySelectorAll('button')[1];
+            this.decrementButton = this.root.querySelectorAll('button')[0];
+
+            this.incrementButton.addEventListener('click', (e) => this.value++);
+            this.decrementButton.addEventListener('click', (e) => this.value--);
+          }
+
+          set value(value) {
+            this._value = value;
+            this.valueElement.innerText = this.value;
+
+            //trigger our custom event 'valueChange'
+            this.dispatchEvent(new CustomEvent('valueChange', {detail: this._value}));
+          }
+
+          get value() {
+            return this._value;
+          }
+
+          static get observedAttributes() {
+            return ['value'];
+          }
+
+          attributeChangedCallback(attrName, oldValue, newValue) {
+            if(attrName == 'value'){
+              this.value = parseInt(newValue, 10);
+            }
+          }
+
+          connectedCallback() {
+            console.log("connected");
+          }
+        }
+
+        customElements.define('x-counter', XCounter);
+
+      })(window.customElements);
+    </script>
+
+    <script>
+      const counter = document.querySelector('x-counter');
+      counter.value = 10;
+      counter.addEventListener('valueChange', v => console.log("value: " + v));
+
+      function f_actualizar() {
+        console.log("f_actualizar");
+        var control = document.querySelector("x-counter");
+        var caja = document.getElementById("txtCaja");
+        control.value = parseInt(caja.value);
+      }
+
+
+    </script>
+  </body>
+</html>

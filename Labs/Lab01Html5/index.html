@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>TODO supply a title</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+      body{
+        font-family: Arial; 
+        background-color: #d9e7f2; 
+        margin: 0px; border: 0px; padding: 0px;
+      }
+      h1{color: #18466a;}
+      #nameSpan{font-weight: bold;} 
+    </style>
+  </head>
+  <body>
+    <h1>Hello</h1>
+    <p>Hi <span id="nameSpan">you</span>!.</p>
+<script>
+  var nameSpan = document.getElementById("nameSpan");
+  nameSpan.innerHTML = "John";
+</script>
+  </body>
+</html>

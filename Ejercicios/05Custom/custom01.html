@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Custom Elements Example</title>
+  </head>
+  <body>
+      Custom Elements Example <br/>
+      <flag-icon country="nl"></flag-icon>
+
+      <script type="text/javascript">
+        ( function(customElements){
+            class FlagIcon extends HTMLElement{
+
+              constructor() {
+                super();
+                this._countryCode = null;
+              }
+
+              static get observedAttributes() { return ["country"];}
+
+              attributeChangedCallback(name, oldValue, newValue) {
+                this._countryCode = newValue;
+                this._updateRendering();
+              }
+
+              get country() {
+                return this.__countryCode;
+              }
+
+              set country(v) {
+                this.setAttribute("country", v);
+              }
+
+              _updateRendering() {
+
+              }
+            } //fin clase
+
+            console.log("Registering Custom element");
+            customElements.define("flag-icon", FlagIcon);
+
+        })(window.customElements);
+      </script>
+  </body>
+</html>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Ejemplo custom element 2</title>
+  </head>
+  <body>
+    <p>Ejemplo custom element 2</p>
+    
+    <x-counter></x-counter>
+
+    <script type="text/javascript">
+      (function(customElements){
+        class XCounter extends HTMLElement {
+          constructor(){
+            super();
+          }
+          connectedCallback() {
+            this.innerHTML = `
+                <p>Hello World</p>
+            `;
+          }
+        }
+
+        customElements.define('x-counter', XCounter);
+
+      })(window.customElements);
+    </script>
+  </body>
+</html>

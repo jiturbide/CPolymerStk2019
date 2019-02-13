@@ -57,7 +57,7 @@ console.log("**Operators**");
 // Operators
 console.log("9 - 5 => " + (9 - 5));
 console.log("[9] * ['5'] => " + [9] * ['5']);
-console.log("'9' + 5 => " + "9" + 5);
+console.log("'9' + 5 => " + ("9" + 5) );
 console.log("9 == '9' => " + (9 == '9'));
 console.log("9 === '9' => " + (9 === '9'));
 console.log("'string' && 'another' => " + "string" && "another");
@@ -67,6 +67,12 @@ var a, b = 5, x = 100;
 console.log("a = b => " + (a = b));
 console.log("x += 1 => " + (x += 1));
 console.log("5 & 6 => " + (5 & 6));
+/*
+8 4 2 1
+0 1 0 1 = 5
+0 1 1 0 = 6
+0 1 0 0
+*/
 var age = 18;
 var status = (age >= 18) ? "major" : "minor";
 console.log("status => " + status);

@@ -16,7 +16,7 @@ console.log(c);
 function declareVariable() {
     if(true) {
       //scope function
-      var a = 7;
+      let a = 7;
     }
     console.log("declareVariable() " + a);
 }

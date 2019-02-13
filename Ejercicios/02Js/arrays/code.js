@@ -1,7 +1,10 @@
+//Cadenas, numeros, booleanos, objetos, funciones, json
+
 console.log("**Creating Arrays**");
 // Creating Arrays
 var myNewEmptyArray = [];
 console.log("myNewEmptyArray => " + myNewEmptyArray);
+console.log("myNewEmptyArray.length => " + myNewEmptyArray.length);
 
 var numbers = [1, 2, 3, 4, 'five'];
 console.log("numbers => " + numbers);
@@ -16,12 +19,24 @@ console.log("myNewNonEmptyArray => " + myNewNonEmptyArray);
 var numbers = new Array(1, 2, 3, 4, 'five');
 console.log("numbers => " + numbers);
 
+console.log("------------------------------------------");
+
 console.log("**Accessing Array Elements**");
 // Accessing Array Elements
 var c = ["blue", "red", "green", "purple"];
 console.log("c.length => " + c.length);
 c[20] = "white";
 console.log("c.length => " + c.length);
+
+function showme(something) {
+  console.log(" **** " + something);
+}
+
+showme();      //
+showme(null);  //
+showme('JLuis'); //
+showme(''); //
+
 
 // iterating arrays
 // prints all the elements in the array, including undefined
@@ -53,3 +68,9 @@ var tic_tac_toe = [
 ];
 
 console.log("tic_tac_toe => " + tic_tac_toe);
+/*
+1 2 3 4 5 6 7 8 9
+2 4 6 8 10
+3
+4 8 12
+*/

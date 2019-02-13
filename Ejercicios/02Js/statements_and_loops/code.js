@@ -35,4 +35,5 @@ for (var myVar in myObject) {
   if (myObject.hasOwnProperty(myVar)) {
     console.log(myVar);
   }
+  console.log(myObject[myVar]);
 }

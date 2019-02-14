@@ -33,22 +33,27 @@
   console.log("Object with array: " + oa.cars[0]);
 
   console.log("Convert to Strings -------------");
+
   function Person(name, age){
     this.name=name;
     this.age=age;
   }
   Person.prototype.calculate=function(){}
+
   var person = new Person("john", 32);
+  console.log("object person: " + person.name);
   var personJson =JSON.stringify(person);
-  console.log(personJson);
+  console.log("json string: " + personJson);
   //output: {"name":"john","age":32}
 
   console.log("Converting Strings to Objects -------------");
   var personJson = "{\"name\":\"john\",\"age\":32}";
   var person = JSON.parse(personJson);
-  console.log(person); //outputs object:object
+  console.log("js object person: " + person); //outputs object:object
   person.toString = function(){return this.name+"-"+this.age;}
   console.log(person.toString()); //outputs: John-32
+
+
 
 
 })();

@@ -1,11 +1,9 @@
 function Task(title) {
   this.title = title;
   this.done = false;
-  this.id = 0;
 }
 
 var allTasks = [];
-var lastId = 0;
 
 window.addEventListener("load", function() {
   //Get from local storage JSON.
@@ -23,27 +21,13 @@ window.addEventListener("load", function() {
     addTask(task);
     titleInput.value = "";
   });
-  var removeCompletedButton = document.getElementById("removeCompleted");
-  removeCompletedButton.addEventListener("click", function() {
-    var taskToRemove = [];
-    for (i = 0; i < allTasks.length; i++) {
-      if (allTasks[i].done) {
-        taskToRemove.push(allTasks[i]);
-      }
-    }
-    for (j = 0; j < taskToRemove.length; j++) {
-      removeTask(taskToRemove[j]);
-    }
-  });
 });
 
 function addTask(task) {
   allTasks.push(task);
-  task.id = lastId++;
   var listContainer = document.getElementById("toDoList");
 
   var taskNode = document.createElement("li");
-  taskNode.setAttribute("id", "task" + task.id); //  task2
 
   var checkbox = document.createElement("input");
   checkbox.setAttribute("type", "checkbox");
@@ -68,25 +52,18 @@ function addTask(task) {
   deleteButton.setAttribute("type", "button");
   deleteButton.setAttribute("value", "Remove");
   deleteButton.addEventListener("click", function() {
-    removeTask(task);
+    for (index = 0; index < allTasks.length; index++) {
+      if (allTasks[index] === task) {
+        allTasks.splice(index, 1);
+        break;
+      }
+    }
+    listContainer.removeChild(taskNode);
     save();
   });
   taskNode.appendChild(deleteButton);
 
   listContainer.appendChild(taskNode);
-  save();
-}
-
-function removeTask(task) {
-  var listContainer = document.getElementById("toDoList");
-  var taskNode = document.getElementById("task" + task.id);
-  for (index = 0; index < allTasks.length; index++) {
-    if (allTasks[index] === task) {
-      allTasks.splice(index, 1);
-      break;
-    }
-  }
-  listContainer.removeChild(taskNode);
   save();
 }
 

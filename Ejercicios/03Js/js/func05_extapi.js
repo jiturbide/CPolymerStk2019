@@ -1,22 +1,30 @@
 /* Extended API */
+//Agregar propiedad Id por prototipo
+//For asignar un valor al Id random()
+//Ordenal la lista por id
+
 function Person(name, age) {
   this.name = name;
   this.age = age;
 }
 Person.prototype.toString = function() {
-  return this.name + "[" + this.age + "]";
+  return this.name + "[" + this.name + "]";
 }
 
+
 var persons = [];
-persons.push(new Person("Ed", 31));
-persons.push(new Person("John", 22));
-persons.push(new Person("Peter", 44));
+persons.push(new Person("Ed", 31)); // *
+persons.push(new Person("John", 22)); // *
+persons.push(new Person("Peter", 44)); //*
 persons.push(new Person("Joseph", 12));
 persons.push(new Person("Richard", 18));
 printArray("--unsorted--", persons);
+console.log("#################################");
+console.log(persons);
+
 
 // SORT BY NAME
-persons.sort(function(personA, personB) {
+persons.sort((personA, personB) => {
   return personA.name > personB.name ? 1 : -1;
 });
 printArray("--Sorted by name--", persons);
@@ -24,9 +32,11 @@ printArray("--Sorted by name--", persons);
 
 // SORT BY AGE
 persons.sort(function(personA, personB) {
-  return personA.age > personB.age;
+  return personA.age > personB.age ? -1 : 1;
 });
 printArray("--Sorted by age--", persons);
+
+console.log("--------------------------------------");
 
 var every10yo = persons.every(function(person) {
   return person.age > 10;

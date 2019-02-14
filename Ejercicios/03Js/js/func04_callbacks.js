@@ -11,6 +11,10 @@ window.addEventListener("load", function () {
   console.log("Cargando 2 ...");
 });
 
+window.addEventListener("load", () => {
+  console.log("Cargando 3 ...");
+});
+
 /*
  Declaration: function name(){}
  Invocation: name();

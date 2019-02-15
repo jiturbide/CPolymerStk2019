@@ -19,7 +19,7 @@ window.addEventListener("load", function() {
     loadedContactos = [];
   }
   for (i = 0; i < loadedContactos.length; i++) {
-    pintaContacto(loadedContactos[i]);
+    agregarContacto(loadedContactos[i]);
   }
   var btnAgregar = document.getElementById("btnAgregar");
 

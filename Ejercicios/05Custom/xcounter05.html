@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Ejemplo custom element 4</title>
+  </head>
+  <body>
+    <p>Ejemplo custom element 4</p>
+    <input type="text" value="0" id="txtCaja" onchange="f_actualizar();"></input>
+    <br/>
+    <x-counter value="5"></x-counter>
+
+    <script type="text/javascript" src="./scripts/custom05.js">
+    </script>
+
+    <script>
+      const counter = document.querySelector('x-counter');
+      //counter.value = 10;
+      counter.addEventListener('valueChange', v => console.log("value: " + v));
+
+      function f_actualizar() {
+        console.log("f_actualizar");
+        var control = document.querySelector("x-counter");
+        var caja = document.getElementById("txtCaja");
+        control.value = parseInt(caja.value);
+      }
+    </script>
+  </body>
+</html>

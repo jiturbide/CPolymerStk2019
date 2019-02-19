@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Ejemplo custom element 4</title>
+  </head>
+  <body>
+    <p>Ejemplo custom element 4</p>
+
+    <x-counter></x-counter>
+
+    <script type="text/javascript" src="./scripts/xcounter04.js">
+    </script>
+
+    <script>
+      const counter = document.querySelector('x-counter');
+      counter.numero = 10;
+      counter.addEventListener('valueChange', v => console.log("value: " + v));
+    </script>
+  </body>
+</html>

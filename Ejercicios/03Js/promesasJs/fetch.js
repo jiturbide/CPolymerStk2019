@@ -2,14 +2,31 @@
 
   'use strict';
 
-  const API_URL = 'datos.json';
+  //const API_URL = 'datos.json';
+  //const API_URL = 'https://www.lyricsfreak.com/d/depeche+mode/enjoy+the+silence_20039358.html'
+  //const API_URL = 'https://jsonplaceholder.typicode.com/todos/1';
+  const API_URL = 'http://127.0.0.1:8887/Ejercicios/03Js/promesasJs/cancion.html';
 
   const control = document.querySelector('#article0');
 
-   fetch('datos.json')
+   fetch(API_URL)
      .then(response => response.json())
      .then(jsondata => printResponse(jsondata))
      .catch(err => console.log('Fallo la peticion ' + err));
+
+/* * /
+  class F implements Function {
+    public String get(HttpResponse response) {
+      return response.json();
+    }
+  }
+
+  class ManejoCatch implements Function {
+    public String get(Error error) {
+      console.log('Fallo la peticion ' + err);
+    }
+  }
+/* */
 
 	const printResponse = (jsondata) => {
 		 	let theHtml = '';

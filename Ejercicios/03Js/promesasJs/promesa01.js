@@ -4,7 +4,10 @@
 
   const API_URL = 'datos.json';
 
-  get('http://www.dzoom.org.es2').then(function(response) {
+//  get('https://jsonplaceholder.typicode.com/todos/1').then(function(response) {
+  get('http://127.0.0.1:8887/Ejercicios/03Js/ajax/data/data.json').
+  then(function(response) {
+//  get('http://www.dzoom.org.es').then(function(response) {
   console.log("Exito!", response);
   }, function(error) {
     console.error("Fallo!", error);

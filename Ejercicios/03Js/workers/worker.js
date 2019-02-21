@@ -1,3 +1,3 @@
 for (i = 0; i < 10; i++) {
-  postMessage("" + i);
+  postMessage("worker.js: " + i);
 }

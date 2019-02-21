@@ -1,0 +1,14 @@
+<link rel="import"  href="https://polygit.org/polymer+^v2.6.0/webcomponentsjs+^v1.3.0/components/polymer/polymer-element.html">
+
+<script>
+  // Define the class for a new element called icon-toggle
+  class IconToggle extends Polymer.Element {
+    static get is() { return "icon-toggle"; }
+    constructor() {
+        super();
+        this.textContent = "Hola Mundo";
+      }
+  }
+  // Register the new element with the browser
+  customElements.define(IconToggle.is, IconToggle);
+</script>

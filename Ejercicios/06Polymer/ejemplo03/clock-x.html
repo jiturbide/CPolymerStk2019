@@ -1,0 +1,126 @@
+<link rel="import"  href="https://polygit.org/polymer+^v2.6.0/webcomponentsjs+^v1.3.0/components/polymer/polymer-element.html">
+
+<dom-module id="clock-x">
+  <!-- Optional shadow DOM template -->
+  <template>
+    <style>
+      .e-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+      }
+      p {
+        font-size: 35px;
+        font-family: consolas;
+        margin: 0;
+      }
+
+      .fecha {
+        margin-bottom: 15px;
+        letter-spacing: 1px;
+      }
+    </style>
+
+    <!-- shadow DOM for your element -->
+    <div>
+      <div class="e-container">
+        <p class="fecha" id="pFecha"></p>
+        <p class="hora" id="pHora"></p>
+        <p> {{hora}}</p> <br>
+        <p> [[hora]]</p>
+      </div>
+  </template>
+
+<script>
+  class ClockX extends Polymer.Element {
+
+        constructor() {
+          super();
+          console.log("Constructor");
+          this.root = this.attachShadow({mode: 'open'});
+          this.pFecha = this.root.getElementById('pFecha');
+          this.pHora = this.root.getElementById('pHora');
+
+          this.inicializar();
+        }
+        static get is() { return 'clock-x'; }
+
+        static get properties() {
+          return {
+            pintarFecha: {
+              type: Boolean,
+              value: false
+            },
+            hora : {
+              type: String,
+              value : '****',
+              reflectToAttribute : true
+            }
+          }
+        }
+
+        set mostrarfecha(yn) {
+          this.pintarFecha = yn;
+          this.inicializar();
+        }
+
+        get mostrarfecha() {
+          console.log("Entro al get");
+          return this.pintarFecha;
+        }
+
+        inicializar() {
+          console.log("Inicializar");
+          var pHora = this.pHora;
+          var pFecha = this.pFecha;
+          var _this = this;
+          console.log(_this.obtenerHora());
+          setInterval(() => {
+            console.log('interval 2');
+            // _this.pHora.textContent = "JLuis"; //_this.obtenerHora();
+            _this.hora = 'adios';
+          },1000);
+
+          // if(_this.pintarFecha === 'false') {
+          //   _this.pFecha.textContent = '';
+          // } else {
+          //   _this.pFecha.textContent = _this.obtenerFecha();
+          // }
+
+          console.log('Mostrar  Fecha: y/n ' + this.pintarFecha);
+
+        } // Termina funcion inicializar()
+
+        obtenerFecha() {
+          let fecha = new Date();
+          return `${fecha.getFullYear()}-${fecha.getMonth() + 1}-${fecha.getDate()}`;
+        }
+
+        obtenerHora() {
+          let hora = new Date();
+          return `${hora.getHours()}:${hora.getMinutes()}:${hora.getSeconds()}`;
+        }
+
+        connectedCallback() {
+          console.log('conectado');
+          console.log('La Fecha ' + this.obtenerFecha());
+          console.log('La hora ' + this.obtenerHora());
+        }
+
+        static get observedAttributes() {
+          console.log('observedAttributes');
+          return ['mostrarfecha'];
+        }
+
+        attributeChangedCallback(attrName, oldValue, newValue) {
+          console.log("attributeChangedCallback");
+          if(attrName == 'mostrarfecha'){
+            this.pintarFecha = newValue;
+          }
+        }
+
+      }
+  // Register the new element with the browser
+  customElements.define(ClockX.is, ClockX);
+</script>

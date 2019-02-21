@@ -1,0 +1,17 @@
+<link rel="import"  href="https://polygit.org/polymer+^v2.6.0/webcomponentsjs+^v1.3.0/components/polymer/polymer-element.html">
+
+<script>
+  // Define the class for a new element called custom-element
+  class CustomElement extends Polymer.Element {
+    static get is() { return "custom-element"; }
+    constructor() {
+        super();
+        //TODO: 1. Modify the text inside this.textContent and see it reflected in the preview.
+        //TODO: 2. Try printing the custom element’s `tagName` property to the console. Hint: add `console.log(this.tagName);` to the constructor method!
+        this.textContent = "I'm a custom-element.";
+        console.log(this);
+      }
+  }
+  // Register the new element with the browser
+  customElements.define(CustomElement.is, CustomElement);
+</script>

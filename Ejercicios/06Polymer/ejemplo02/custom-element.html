@@ -1,17 +1,52 @@
 <link rel="import"  href="https://polygit.org/polymer+^v2.6.0/webcomponentsjs+^v1.3.0/components/polymer/polymer-element.html">
+<!-- <script src="" charset="utf-8"></script> -->
 
-<script>
-  // Define the class for a new element called custom-element
-  class CustomElement extends Polymer.Element {
-    static get is() { return "custom-element"; }
-    constructor() {
+<dom-module id="custom-element">
+  <!-- Optional shadow DOM template -->
+  <template>
+    <style>
+      /* CSS rules for your element */
+    </style>
+
+    <!-- shadow DOM for your element -->
+
+    <div>{{name}} <br>
+      {{email}}
+    </div> <!-- data bindings in local DOM -->
+  </template>
+
+  <script>
+    // Define the element's API using an ES2015 class
+    class CustomElement extends Polymer.Element {
+
+      constructor() {
         super();
-        //TODO: 1. Modify the text inside this.textContent and see it reflected in the preview.
-        //TODO: 2. Try printing the custom element’s `tagName` property to the console. Hint: add `console.log(this.tagName);` to the constructor method!
-        this.textContent = "I'm a custom-element.";
-        console.log(this);
+        console.log("Constructor");
       }
-  }
-  // Register the new element with the browser
-  customElements.define(CustomElement.is, CustomElement);
-</script>
+      static get is() { return 'custom-element'; }
+
+      // Declare properties for the element's public API
+      static get properties() {
+        return {
+          name: {
+            type: String,
+            value: "Homero"
+          },
+          email: {
+            type: String,
+            value: 'homero@springfield.com'
+          }
+        }
+      }
+
+      // Add methods to the element's public API
+      greetMe() {
+        console.log(this.greeting);
+      }
+
+    }
+
+    customElements.define(CustomElement.is, CustomElement);
+  </script>
+
+</dom-module>

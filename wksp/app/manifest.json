@@ -1,0 +1,7 @@
+{
+  "name": "agenda",
+  "short_name": "agenda",
+  "description": "Aplicacion de contactos",
+  "start_url": "/",
+  "display": "standalone"
+}

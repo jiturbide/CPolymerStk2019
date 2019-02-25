@@ -1,0 +1,61 @@
+<link rel="import"  href="https://polygit.org/polymer+^v2.6.0/webcomponentsjs+^v1.3.0/iron-*+polymerelements+^v2.0.0/components/polymer/polymer-element.html">
+<!-- import the iron-input element -->
+<link rel="import"  href="https://polygit.org/polymer+^v2.6.0/webcomponentsjs+^v1.3.0/iron-*+polymerelements+^v2.0.0/components/iron-input/iron-input.html">
+
+<dom-module id="property-tag0">
+
+  <template>
+    <style>
+    iron-input[invalid] > input {
+        border: 1px solid red;
+        background-color: #FFCDD2;
+      }
+    </style>
+    <p>Ejemplo de properties</p>
+    <p>Autor <b>[[owner]]</b></p>
+
+    <label for="txtis">Tu IS: </label>
+    <iron-input id="txtis" bind-value="{{owner}}" allowed-pattern="[A-Z]" auto-validate>
+      <input pattern="[A-Z]{4}" placeholder="Escribe aqui tu IS">
+    </iron-input>
+    <label for="txtnombre">Nombre: </label>
+    <iron-input id="txtnombre" bind-value="{{name}}" allowed-pattern="[\w\s]" auto-validate>
+      <input pattern="[\w\s]+" placeholder="Escribe aqui tu Nombre">
+    </iron-input>
+  </template>
+
+  <script>
+    class PropertyTag0 extends Polymer.Element {
+      constructor() {
+        super();
+        let f = new Date();
+        console.log("Loaded at " + f);
+      }
+      static get is() { return "property-tag0"; }
+
+      // configure the owner property
+      static get properties() {
+        //type Boolean, Date, Number, String, Array and Object
+        return {
+          owner: {
+            type: String,
+            value: 'NONE',
+            readOnly : true,
+            notify : false,
+            reflectToAttribute : true
+          },
+          name : {
+            type: String,
+            value: 'NOT-SET',
+            readOnly : false,
+            notify : true,
+            reflectToAttribute : false
+          }
+        };
+      }
+
+    }
+    customElements.define(PropertyTag0.is, PropertyTag0);
+  </script>
+
+</dom-module>

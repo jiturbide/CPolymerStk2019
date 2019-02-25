@@ -1,0 +1,38 @@
+<link rel="import"  href="https://polygit.org/polymer+^v2.6.0/webcomponentsjs+^v1.3.0/iron-*+polymerelements+^v2.0.0/components/polymer/polymer-element.html">
+<!-- import the iron-input element -->
+<link rel="import"  href="https://polygit.org/polymer+^v2.6.0/webcomponentsjs+^v1.3.0/iron-*+polymerelements+^v2.0.0/components/iron-input/iron-input.html">
+
+<dom-module id="editable-name-tag">
+
+  <template>
+    <!-- bind to the "owner" property -->
+    <p>This is <b>[[owner]]</b>'s name-tag element.</p>
+
+    <!-- iron-input exposes a two-way bindable input value -->
+    <iron-input bind-value="{{owner}}" >
+      <!--
+      TODO: Edit the placeholder text to see two-way data binding at work.
+      -->
+      <input placeholder="Your name here...">
+    </iron-input>
+  </template>
+
+  <script>
+    class EditableNameTag extends Polymer.Element {
+      static get is() { return "editable-name-tag"; }
+
+      // configure the owner property
+      static get properties() {
+        return {
+          owner: {
+            type: String,
+            value: 'Daniel'
+          }
+        };
+      }
+
+    }
+    customElements.define(EditableNameTag.is, EditableNameTag);
+  </script>
+
+</dom-module>

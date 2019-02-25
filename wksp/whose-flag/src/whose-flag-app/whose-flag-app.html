@@ -158,10 +158,12 @@
         let clickedButton = event.target;
         this.userAnswer = clickedButton.textContent;
         if (this.userAnswer == this.correctAnswer.name) {
-          this.outputMessage = `${this.userAnswer} is correct!`;
+         this.outputMessage = `${this.userAnswer} is correct!`;
+          // this.outputMessage = this.userAnswer + ' is correct!';
         }
         else {
-          this.outputMessage = `Nope! The correct answer is ${this.correctAnswer.name}!`;
+         this.outputMessage = `Nope! The correct answer is ${this.correctAnswer.name}!`;
+          // this.outputMessage = 'Nope! The correct answer is ' + this.correctAnswer.name + '!';
         }
       }
 

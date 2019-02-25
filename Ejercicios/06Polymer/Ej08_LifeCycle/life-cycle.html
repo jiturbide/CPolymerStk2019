@@ -1,0 +1,80 @@
+<link rel="import"  href="https://polygit.org/polymer+^v2.6.0/webcomponentsjs+^v1.3.0/iron-*+polymerelements+^v2.0.0/components/polymer/polymer-element.html">
+<!-- import the iron-input element -->
+<link rel="import"  href="https://polygit.org/polymer+^v2.6.0/webcomponentsjs+^v1.3.0/iron-*+polymerelements+^v2.0.0/components/iron-input/iron-input.html">
+
+<dom-module id="life-cycle">
+
+  <template>
+    <p>[[description]]</p>
+  </template>
+
+  <script>
+    //console.log("Ejecucion de script de definicion de componente " + LifeCycle.is);
+    console.log("Ejecucion de script de definicion de componente ");
+    class LifeCycle extends Polymer.Element {
+      constructor() {
+        /*
+        Called when the element has been created, but before property values are
+        set and local DOM is initialized.
+        Use for one-time set-up before property values are set.
+        */
+        super();
+        console.log("constructor()");
+      }
+
+      ready() {
+        /* Is invoked when Polymer has finished creating and initializing
+          the element's DOM.
+          Creates and attaches the element's shadow DOM tree.
+          Initializes the data system, propagating initial values to data bindings.
+          Allows observers and computed properties to run (as soon as any of their dependencies are defined).
+        */
+        super.ready();
+        console.log('ready(): Componente listo para atender peticiones ' + this.id);
+      }
+
+      connectedCallback() {
+        /*
+          Called after the element is attached to the document.
+          Can be called multiple times during the lifetime of an element.
+          The first attached callback is guaranteed not to fire until after ready.
+        */
+        super.connectedCallback();
+        console.log('connectedCallback(): Agregado al DOM ' + this.id);
+      }
+
+      disconnectedCallback() {
+        /*
+        	Called when the element is removed from a document.
+        */
+        super.disconnectedCallback();
+        console.log('disconnectedCallback(): Adios! ' + this.id);
+      }
+
+      static get is() { return "life-cycle"; }
+
+      static get properties() {
+        return {
+          description: {
+            type: String,
+            value: 'Ejemplo de Life cycle events'
+          }
+        };
+      }
+    }
+    customElements.define(LifeCycle.is, LifeCycle);
+
+    console.log("Termino de script de definicion de componente");
+
+    /*
+          1.x (legacy)    |      2.x
+    ----------------------|-----------------------------
+        created           |   constructor
+        attached          |   connectedCallback
+        detached          |   disconnectedCallback
+        attributeChanged  |   attributeChangedCallback
+        ready             |   ready
+    */
+  </script>
+
+</dom-module>

@@ -1,0 +1,90 @@
+<link rel="import"  href="https://polygit.org/polymer+^v2.6.0/webcomponentsjs+^v1.3.0/iron-*+polymerelements+^v2.0.0/components/polymer/polymer-element.html">
+<!-- import the iron-input element -->
+<link rel="import"  href="https://polygit.org/polymer+^v2.6.0/webcomponentsjs+^v1.3.0/iron-*+polymerelements+^v2.0.0/components/iron-input/iron-input.html">
+
+<dom-module id="property-tag1">
+
+  <template>
+    <style>
+    iron-input[invalid] > input {
+        border: 1px solid red;
+        background-color: #FFCDD2;
+      }
+    </style>
+    <p>Ejemplo de Observer y computed</p>
+    <p>Autor <b>[[owner]]</b></p>
+
+    <label for="txta">Valor A: </label>
+    <iron-input id="txta" bind-value="{{valuea}}" allowed-pattern="\d" auto-validate>
+      <input pattern="\d+" placeholder="Operando 1">
+    </iron-input>
+    <label for="txtb">Valor B: </label>
+    <iron-input id="txtb" bind-value="{{valueb}}" allowed-pattern="\d" auto-validate>
+      <input pattern="\d+" placeholder="Operando 2">
+    </iron-input>
+    <iron-input id="txtresult" bind-value="[[result]]" >
+      <input pattern="\d+">
+    </iron-input>
+  </template>
+
+  <script>
+    class PropertyTag1 extends Polymer.Element {
+      constructor() {
+        super();
+        let f = new Date();
+        console.log("Loaded at " + f);
+      }
+      static get is() { return "property-tag0"; }
+
+      // configure the owner property
+      static get properties() {
+        return {
+          owner: {
+            type: String,
+            value: 'JLIL',
+            readOnly : true,
+            notify : false,
+            reflectToAttribute : true
+          },
+          valuea : {
+            type: Number,
+            value: 0,
+            readOnly : false,
+            notify : false,
+            observer: '_valueaChanged'
+          },
+          valueb : {
+            type: Number,
+            value: 0,
+            readOnly : false,
+            notify : false,
+            observer: '_valuebChanged'
+          },
+          result : {
+            type: Number,
+            value: 0,
+            computed: 'operandb(valuea, valueb)'
+          }
+
+        };
+      }
+
+      _valueaChanged(newValue, oldValue) {
+        console.log(`A newValue: ${newValue} oldValue: ${oldValue}`);
+      }
+
+      _valuebchanged(newValue, oldValue) {
+        console.log(`B newValue: ${newValue} oldValue: ${oldValue}`);
+      }
+
+      operandb(a, b) {
+        let total = a + b;
+        console.log("a+b: " + total);
+        return total;
+      }
+
+    }
+    customElements.define(PropertyTag0.is, PropertyTag0);
+  </script>
+
+</dom-module>

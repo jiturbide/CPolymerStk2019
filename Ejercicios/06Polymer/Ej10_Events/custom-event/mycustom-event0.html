@@ -1,0 +1,28 @@
+<link rel="import"  href="https://polygit.org/polymer+^v2.6.0/webcomponentsjs+^v1.3.0/iron-*+polymerelements+^v2.0.0/components/polymer/polymer-element.html">
+
+<dom-module id="mycustom-event0">
+  <template>
+    <button on-click="handleClick">Kick Me</button>
+  </template>
+
+  <script>
+    class MycustomEvent0 extends Polymer.Element {
+
+      static get is() {return 'mycustom-event0'}
+
+      handleClick(e) {
+        this.dispatchEvent(new CustomEvent('patadita', {detail: {kicked: true, composed: true}}));
+      }
+    }
+    customElements.define(MycustomEvent0.is, MycustomEvent0);
+  </script>
+
+</dom-module>
+
+
+
+<script>
+    document.querySelector('mycustom-event0').addEventListener('patadita', function (e) {
+        console.log(e.detail.kicked); // true
+    })
+</script>

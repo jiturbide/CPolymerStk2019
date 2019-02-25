@@ -19,7 +19,7 @@
         Use for one-time set-up before property values are set.
         */
         super();
-        console.log("constructor()");
+        console.log("constructor() " + this.id);
       }
 
       ready() {
@@ -51,6 +51,10 @@
         console.log('disconnectedCallback(): Adios! ' + this.id);
       }
 
+      attributeChangedCallback(old, nuevo, who) {
+        console.log("old, new, who" + old + nuevo + who);
+      }
+
       static get is() { return "life-cycle"; }
 
       static get properties() {
@@ -75,6 +79,8 @@
         attributeChanged  |   attributeChangedCallback
         ready             |   ready
     */
+
+
   </script>
 
 </dom-module>

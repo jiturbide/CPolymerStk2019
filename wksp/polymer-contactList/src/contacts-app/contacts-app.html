@@ -1,0 +1,162 @@
+<link rel="import" href="/bower_components/polymer/polymer-element.html">
+<link rel="import" href="/bower_components/polymer/lib/elements/dom-repeat.html">
+<link rel="import" href="/bower_components/app-layout/app-layout.html">
+<link rel="import" href="/bower_components/app-layout/app-scroll-effects/effects/waterfall.html">
+
+<link rel="import" href="/bower_components/paper-dialog/paper-dialog.html">
+<link rel="import" href="/bower_components/paper-dialog-behavior/paper-dialog-behavior.html">
+<link rel="import" href="/bower_components/iron-resizable-behavior/iron-resizable-behavior.html">
+<link rel="import" href="/bower_components/neon-animation/neon-animation.html">
+
+<link rel="import" href="/bower_components/paper-button/paper-button.html">
+<link rel="import" href="/bower_components/paper-input/paper-input.html">
+<link rel="import" href="/bower_components/iron-icon/iron-icon.html">
+<link rel="import" href="contact-card.html">
+<link rel="import" href="contact-panel.html">
+
+<dom-module id="contacts-app">
+  <template>
+    <style>
+    app-header {
+      background-color: blue;
+      color: #fff;
+    }
+    app-drawer {
+      --app-drawer-content-container: {
+         background-color: #fafafa;
+       }
+    }
+    paper-icon-button {
+      --paper-icon-button-ink-color: white;
+    }
+    .title {
+      font-size: 30px;
+      font-weight: bold;
+    }
+    app-drawer-layout:not([narrow]) [drawer-toggle] {
+      display: none;
+    }
+    app-toolbar {
+      text-align: center;
+    }
+    paper-button {
+      background-color: #4785d1;
+      color: white;
+      height: 45px;
+      margin: 30px 20px 0 10px;;
+      width: 90%;
+    }
+    paper-dialog {
+      padding: 25px 90px;
+    }
+    .scroll-contacts {
+      height: 100%;
+      overflow: auto;
+    }
+    </style>
+
+    <app-drawer-layout>
+      <app-header-layout>
+        <app-header slot="header" reveals effects="waterfall">
+          <app-toolbar>
+            <paper-icon-button icon="menu" drawer-toggle></paper-icon-button>
+            <div class="title" main-title>Aplicacion Contactos</div>
+          </app-toolbar>
+        </app-header>
+        <contact-panel active-contact="[[activeContact]]" on-info-updated="_updateContact"></contact-panel>
+      </app-header-layout>
+
+      <app-drawer align="end" slot="drawer" >
+        <app-toolbar>Tus Contactos</app-toolbar>
+        <paper-button raised on-click="_openDialog">Nuevo Contacto</paper-button>
+        <div class="scroll-contacts">
+          <template is="dom-repeat" items="[[contactList]]" as="contact">
+            <contact-card contact-id="[[index]]"
+                          contact-name="[[contact.name]]"
+                          contact-phone="[[contact.phone]]"
+                          contact-photo="[[contact.imagesList]]"
+                          on-click="_contactSelected"></contact-card>
+          </template>
+        </div>
+      </app-drawer>
+    </app-drawer-layout>
+
+    <paper-dialog id="dialog"
+                  entry-animation="scale-up-animation"
+                  exit-animation="fade-out-animation"
+                  with-backdrop>
+      <h2>Nuevo Contacto</h2>
+      <paper-input id="name" label="Nombre">
+        <iron-icon icon="social:mood" slot="prefix"></iron-icon>
+      </paper-input>
+      <paper-input id="phone" label="Telefono">
+        <iron-icon icon="hardware:phone-android" slot="prefix"></iron-icon>
+      </paper-input>
+      <paper-button raised on-click="_newContact">Añadir Contacto</paper-button>
+    </paper-dialog>
+
+  </template>
+
+  <script>
+    (function ContactsApp(customElements) {
+      'use strict';
+      class ContactsApp extends Polymer.Element {
+        static get is() {
+          return 'contacts-app';
+        }
+        static get properties() {
+          return {
+            contactList: {
+              type: String,
+              value: [
+                {id: 0, name: 'Jose Luis', phone: '555197855', imagesList: ['/img/pinkgirl.jpg', '/img/pinkgirl2.jpg', '/img/pinkgirl3.jpg'], activeImg: 0},
+                {id: 1, name: 'Sandra', phone: '554520963', imagesList: ['/img/bluegirl.jpg', '/img/bluegirl2.jpg'], activeImg: 0},
+                {id: 1, name: '', phone: '5545246673', imagesList: ['/img/whitegirl.jpg', '/img/whitegirl2.jpg'], activeImg: 0},
+              ]
+            },
+            newContact: {
+              type: Object,
+              value: {
+                name: 'Contact',
+                phone: 434
+              }
+            },
+            activeContact: {
+              type: Object,
+              value: {id: 0, name: 'Victoria',phone: '555197855', imagesList: ['/img/pinkgirl.jpg', '/img/pinkgirl2.jpg', '/img/pinkgirl3.jpg'], activeImg: 0},
+            }
+          };
+        }
+        _openDialog() {
+          this.$.dialog.open()
+        }
+        _newContact() {
+          this.newContact.id = this.contactList.length;
+          this.newContact.name = this.$.name.value;
+          this.newContact.phone = this.$.phone.value;
+          this.newContact.imagesList = ['/img/contact-woman.jpg'];
+          this.newContact.activeImg = 0;
+          this.push('contactList', this.newContact);
+          this.activeContact = this.contactList[this.contactList.length - 1];
+          this.$.name.value = "";
+          this.$.phone.value = "";
+          this.$.dialog.close();
+        }
+        _contactSelected(event) {
+          this.activeContact = this.contactList[event.target.contactId];
+        }
+        _updateContact(event) {
+          this.set(`contactList.${this.activeContact.id}.name`, event.detail.name);
+          this.set(`contactList.` + this.activeContact.id + `.phone`, event.detail.phone);
+          this.set(`contactList.` + this.activeContact.id + `.address`, event.detail.address);
+          this.set(`contactList.` + this.activeContact.id + `.work`, event.detail.work);
+          this.set(`contactList.` + this.activeContact.id + `.gender`, event.detail.gender);
+          // TODO this set to active contact only works with the first demo contact
+          this.set('activeContact', this.contactList[this.activeContact.id]);
+        }
+      }
+
+      customElements.define(ContactsApp.is, ContactsApp);
+    })(window.customElements);
+  </script>
+</dom-module>

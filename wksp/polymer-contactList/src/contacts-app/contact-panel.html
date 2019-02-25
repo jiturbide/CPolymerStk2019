@@ -1,0 +1,126 @@
+<link rel="import" href="/bower_components/polymer/polymer-element.html">
+<link rel="import" href="/bower_components/paper-card/paper-card.html">
+<link rel="import" href="/bower_components/paper-dialog/paper-dialog.html">
+
+<link rel="import" href="/bower_components/paper-button/paper-button.html">
+<link rel="import" href="/bower_components/paper-input/paper-input.html">
+<link rel="import" href="/bower_components/iron-icon/iron-icon.html">
+<link rel="import" href="/bower_components/file-input/file-input.html">
+
+<link rel="import" href="carrousel-element.html">
+
+<dom-module id="contact-panel">
+  <template>
+    <style>
+      paper-card {
+        margin: 0 0 10px 0;
+        padding: 30px;
+        width: 100%;
+      }
+      .avatar-section {
+        text-align: center;
+      }
+      h1 {
+        text-align: center;
+      }
+      div {
+        display: inline-block;
+        width: 48%;
+      }
+      span {
+        font-weight: bold;
+      }
+      .edit-button {
+        background-color: orange;
+        color: white;
+        text-align: center;
+      }
+      paper-dialog {
+        padding: 15px;
+        text-align: center;
+      }
+      paper-button {
+        background-color: #4785d1;
+        color: white;
+        margin: 10px;
+        padding:10px;
+      }
+      paper-input {
+        width: 300px;
+      }
+    </style>
+
+    <paper-card class="avatar-section">
+      <carrousel-element images-list="[[activeContact.imagesList]]" active-img="[[activeContact.activeImg]]"></carrousel-element>
+      <h1>[[activeContact.name]]</h1>
+      <paper-button class="edit-button" on-click="_openDialog">Editar</paper-button>
+    </paper-card>
+    <paper-card>
+      <div>
+        <p><span>Teléfono:</span> [[activeContact.phone]]</p>
+        <p><span>Trabajo:</span>[[activeContact.work]]</p>
+      </div>
+      <div>
+        <p><span>Dirección:</span>[[activeContact.address]]</p>
+        <p><span>Genero:</span>[[activeContact.gender]]</p>
+      </div>
+    </paper-card>
+    <paper-card>
+      <h3>Notas:</h3>
+    </paper-card>
+
+    <paper-dialog id="Dialog">
+      <h2>Info de [[activeContact.name]]</h2>
+      <paper-input id="nameInput" label="Nombre"></paper-input>
+      <paper-input id="phoneInput" label="Teléfono"></paper-input>
+      <paper-input id="addressInput" label="Dirección"></paper-input>
+      <paper-input id="workInput" label="Trabajo"></paper-input>
+      <paper-input id="genderInput" label="Genero"></paper-input>
+      <paper-button raised on-click="_contactUpdated">Guardar</paper-button>
+    </paper-dialog>
+  </template>
+  <script>
+    (function contactPanel(customElements) {
+      'use strict';
+
+      class ContactPanel extends Polymer.Element {
+        static get is() {
+          return 'contact-panel'
+        }
+        static get properties() {
+          return {
+            activeContact: Object,
+          }
+        }
+        _openDialog() {
+          this.$.nameInput.value = this.activeContact.name
+          this.$.phoneInput.value = this.activeContact.phone
+          this.$.addressInput.value = this.activeContact.address
+          this.$.workInput.value = this.activeContact.work
+          this.$.genderInput.value = this.activeContact.gender
+          this.$.Dialog.open();
+        }
+        _contactUpdated(event) {
+          this.dispatchEvent(new CustomEvent('info-updated', {
+            bubbles: true,
+            composed: true,
+            detail: {
+              name: this.$.nameInput.value,
+              phone: this.$.phoneInput.value,
+              address: this.$.addressInput.value,
+              work: this.$.workInput.value,
+              gender: this.$.genderInput.value,
+            }
+          }));
+          this.$.nameInput.value = ""
+          this.$.phoneInput.value = ""
+          this.$.addressInput.value = ""
+          this.$.workInput.value = ""
+          this.$.genderInput.value = ""
+          this.$.Dialog.close()
+        }
+      }
+      window.customElements.define(ContactPanel.is, ContactPanel);
+    })(window.customElements);
+  </script>
+</dom-module>

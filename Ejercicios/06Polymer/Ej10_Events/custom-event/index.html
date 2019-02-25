@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+  <script src="https://polygit.org/polymer+^v2.6.0/webcomponentsjs+^v1.3.0/components/webcomponentsjs/webcomponents-loader.js"></script>
+  <link rel="import" href="mycustom-event0.html">
+  </head>
+  <body>
+    <p id="control">Ejemplo de uso de Eventos</p>
+    <mycustom-event0 id="me1"></mycustom-event0>
+    <mycustom-event0 id="me2"></mycustom-event0>
+    <script>
+        var cuantas = 0;
+        var c = document.getElementById('me1')
+        c.addEventListener('patadita', function (e) {
+            console.log('control: ' + e.target.id); // true
+        })
+        var c = document.getElementById('me2')
+        c.addEventListener('patadita', function (e) {
+            console.log('control: ' + e.target.id); // true
+        })
+    </script>
+  </body>
+</html>

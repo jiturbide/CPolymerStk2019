@@ -1,0 +1,84 @@
+<link rel="import" href="/bower_components/polymer/polymer-element.html">
+<link rel="import" href="/bower_components/paper-card/paper-card.html">
+<link rel="import" href="/bower_components/polymer/lib/elements/dom-repeat.html">
+<link rel="import" href="/bower_components/polymer/lib/elements/dom-if.html">
+<link rel="import" href="/bower_components/paper-icon-button/paper-icon-button.html">
+<link rel="import" href="/bower_components/iron-icons/iron-icons.html">
+
+<dom-module id="carrousel-element">
+  <template>
+    <style>
+      section {
+        display: block;
+        text-align: center;
+        width: 100%;
+      }
+      paper-card {
+        display: inline-block;
+        height: 300px;
+        padding: 10px;
+        width: 60%;
+      }
+      img {
+        height: 100%;
+      }
+      paper-icon-button {
+        color: gray;
+        bottom: 130px;
+      }
+    </style>
+      <section>
+        <paper-icon-button icon="arrow-back" on-click="_changeModalLeft"></paper-icon-button>
+        <paper-card>
+          <template is="dom-repeat" items="[[imagesList]]" as="imageSrc">
+            <template is="dom-if" if="[[_isEqual(activeImg, index)]]">
+              <img src="[[imageSrc]]" alt="[[imageSrc]]">
+            </template>
+          </template>
+        </paper-card>
+        <paper-icon-button icon="arrow-forward" on-click="_changeModalRight"></paper-icon-button>
+      </section>
+  </template>
+  <script>
+    (function carrouselElement(customElements) {
+      'use strict';
+
+      class CarrouelElement extends Polymer.Element {
+        static get is () { return 'carrousel-element'};
+        static get properties() {
+          return {
+            imagesList: {
+              type: Array,
+              value: ['/img/ayake.jpg','/img/contact-woman.jpg','/img/contact-man.jpg']
+            },
+            activeImg: {
+              type: Number,
+              value: 0
+            }
+          }
+        }
+        _isEqual(activeImg, index) {
+          return activeImg == index
+        }
+        _changeModalLeft() {
+          if (this.activeImg == 0) {
+            return;
+          } else {
+            this.activeImg = this.activeImg - 1;
+          }
+        }
+        _changeModalRight() {
+          let arrayLenght = this.imagesList.length
+          if (this.activeImg == arrayLenght - 1) {
+            return;
+          } else {
+            this.activeImg = this.activeImg + 1;
+          }
+        }
+      }
+
+      window.customElements.define(CarrouelElement.is, CarrouelElement);
+    })(window.customElements);
+  </script>
+
+</dom-module>

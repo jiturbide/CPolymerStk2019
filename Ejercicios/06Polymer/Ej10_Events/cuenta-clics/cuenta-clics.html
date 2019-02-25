@@ -1,0 +1,59 @@
+<link rel="import"  href="https://polygit.org/polymer+^v2.6.0/webcomponentsjs+^v1.3.0/iron-*+polymerelements+^v2.0.0/components/polymer/polymer-element.html">
+
+<dom-module id="cuenta-clics">
+  <template>
+    <style>
+      :host {
+        display: block;
+        padding: 5px;
+        border: 1px solid orange;
+        margin-bottom: 5px;
+      }
+      p {
+        margin-top: 0;
+        padding: 5px;
+        background-color: darkorange;
+        color: white;
+      }
+    </style>
+
+    <p>
+      Llevas [[contador]] clics
+    </p>
+    <button on-click="incrementaClic">Clic para contar</button>
+    <button on-click="resetear">Resetear la cuenta</button>
+  </template>
+
+  <script>
+    class CuentaClics extends Polymer.Element {
+      static get is() {
+        return 'cuenta-clics';
+      }
+
+      static get properties() {
+        return {
+          contador: {
+            type: Number,
+            value: 0
+          }
+        }
+      }
+
+      constructor() {
+        super();
+      }
+
+      incrementaClic(e) {
+        this.contador++;
+        console.log('Objeto evento', e)
+      }
+
+      resetear() {
+        this.contador = 0;
+      }
+
+    }
+
+    window.customElements.define(CuentaClics.is, CuentaClics);
+  </script>
+</dom-module>

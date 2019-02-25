@@ -1,0 +1,7 @@
+{
+  "name": "polymer-contacts",
+  "short_name": "polymer-contacts",
+  "description": "A contact list application excercise to use polymer and custom elements.",
+  "start_url": "/",
+  "display": "standalone"
+}

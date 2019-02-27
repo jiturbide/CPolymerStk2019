@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+  <script src="https://polygit.org/polymer+^v2.6.0/webcomponentsjs+^v1.3.0/components/webcomponentsjs/webcomponents-loader.js"></script>
+  <link rel="import" href="event-retargeting.html">
+  </head>
+  <body>
+    <p id="control">Ejemplo de uso de Retargeting de Eventos</p>
+
+    <event-retargeting id="me1"></event-retargeting>
+    <br><br>
+    <input id="txt" type="text" name="" value="">
+
+    <script>
+      var el = document.querySelector('event-retargeting');
+      el.addEventListener('click', function(e){
+        // logs the instance of event-targeting that hosts #myButton
+        console.info('target is:', e.target);
+        // logs [#myButton, ShadowRoot, event-retargeting,
+        //       body, html, document, Window]
+        console.info('composedPath is:', e.composedPath());
+      });
+    </script>
+  </body>
+</html>

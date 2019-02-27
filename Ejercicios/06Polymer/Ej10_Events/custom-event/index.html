@@ -6,17 +6,24 @@
   </head>
   <body>
     <p id="control">Ejemplo de uso de Eventos</p>
+
     <mycustom-event0 id="me1"></mycustom-event0>
     <mycustom-event0 id="me2"></mycustom-event0>
+    <br><br>
+    <input id="txt" type="text" name="" value="">
+
     <script>
-        var cuantas = 0;
-        var c = document.getElementById('me1')
-        c.addEventListener('patadita', function (e) {
+        var txt = document.getElementById("txt");
+
+        var c1 = document.getElementById('me1');
+        c1.addEventListener('patadita', function (e) {
             console.log('control: ' + e.target.id); // true
+            txt.value = `${e.detail.nombre}@softtek.com `;
         })
-        var c = document.getElementById('me2')
-        c.addEventListener('patadita', function (e) {
+        var c2 = document.getElementById('me2')
+        c2.addEventListener('patadita', function (e) {
             console.log('control: ' + e.target.id); // true
+            txt.value = `${e.detail.apellido}@softtek.com`;
         })
     </script>
   </body>

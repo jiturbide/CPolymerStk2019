@@ -1,0 +1,63 @@
+<link rel="import"  href="https://polygit.org/polymer+^v2.6.0/webcomponentsjs+^v1.3.0/iron-*+polymerelements+^v2.0.0/components/polymer/polymer-element.html">
+<link rel="import"  href="https://polygit.org/polymer+^v2.6.0/webcomponentsjs+^v1.3.0/iron-*+polymerelements+^v2.0.0/components/iron-input/iron-input.html">
+
+<dom-module id="x-target">
+  <script>
+    class XTarget extends Polymer.Element {
+
+      static get is() {return 'x-target';}
+
+      static get properties() {
+        return {
+          someProp: {
+            type: String,
+            notify: true,
+            observer : '_printvalue'
+          }
+        };
+      }
+
+      _printvalue() {
+          console.log('XTarget: ' + this.someProp);
+        }
+    }
+
+    customElements.define(XTarget.is, XTarget);
+  </script>
+</dom-module>
+
+
+<dom-module id="df-twoway">
+  <template>
+    <!-- changes to "value" propagate downward to "someProp" on target -->
+    <!-- changes to "someProp" propagate upward to "value" on host  -->
+    <x-target some-prop="{{algo}}"></x-target>
+    <label for="txtis">Escribe tu usuario: </label>
+    <iron-input id="txtis" bind-value="{{algo}}" >
+      <input placeholder="Escribe aqui ...">
+    </iron-input>
+    <p>[[algo]]@softtek.com</p>
+  </template>
+  <script>
+    class XHost extends Polymer.Element {
+
+      static get is() {return 'df-twoway';}
+
+      static get properties() {
+        return {
+          algo : {
+            type: String,
+            value: 'NOT-SET',
+            observer: '_printvalue' }
+        };
+      }
+
+      _printvalue() {
+        console.log('XHost: ' + this.algo);
+      }
+
+    }
+
+    customElements.define(XHost.is, XHost);
+  </script>
+</dom-module>

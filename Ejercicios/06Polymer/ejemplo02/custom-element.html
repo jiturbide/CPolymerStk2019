@@ -1,5 +1,4 @@
 <link rel="import"  href="https://polygit.org/polymer+^v2.6.0/webcomponentsjs+^v1.3.0/components/polymer/polymer-element.html">
-<!-- <script src="" charset="utf-8"></script> -->
 
 <dom-module id="custom-element">
   <!-- Optional shadow DOM template -->
@@ -9,9 +8,8 @@
     </style>
 
     <!-- shadow DOM for your element -->
-
-    <div>{{name}} <br>
-      {{email}}
+    <div>nombre: [[name]] <br>
+      email: [[email]]
     </div> <!-- data bindings in local DOM -->
   </template>
 

@@ -17,11 +17,14 @@
       }
     </style>
 
-    <p>
+    <p id="ptitulo">
       Llevas [[contador]] clics
     </p>
-    <button on-click="incrementaClic">Clic para contar</button>
-    <button on-click="resetear">Resetear la cuenta</button>
+    <!-- Anotated event listeners
+        To avoid confusion, always use lowercase event names. -->
+    <button on-click="_incrementar">Clic para incrementar</button>
+    <button id="btndecrementar">Clic para decrementar</button>
+    <button id="btnresetear">Resetear la cuenta</button>
   </template>
 
   <script>
@@ -43,13 +46,32 @@
         super();
       }
 
-      incrementaClic(e) {
-        this.contador++;
-        console.log('Objeto evento', e)
+      ready() {
+        super.ready();
+        //Listeners imperativos
+        //Este es el mejor lugar donde agregar Listeners imperativos
+        // Listener on the custom element
+        this.addEventListener('mouseover', event => this._mouseover(event));
+        // Listener on child elements
+        this.$.btndecrementar.addEventListener('click', event => this._decrementar(event));
+        this.$.btnresetear.addEventListener('click', this._resetear.bind(this));
       }
 
-      resetear() {
+      _incrementar(e) {
+        this.contador++;
+      }
+
+      _decrementar(e) {
+        this.contador--;
+      }
+
+      _resetear(e) {
         this.contador = 0;
+        console.log("Reset");
+      }
+
+      _mouseover(e) {
+        console.log(e);
       }
 
     }

@@ -6,7 +6,9 @@
     static get is() { return "custom-element"; }
     constructor() {
         super();
-        this.textContent = "I'm a custom-element.";
+        this.name = "Homero";
+        this.email = 'homero@springfield.com';
+        this.textContent = `Nombre: ${this.name} email: ${this.email}`;
         console.log(this);
       }
   }

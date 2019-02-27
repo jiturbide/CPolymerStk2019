@@ -11,7 +11,18 @@
       static get is() {return 'mycustom-event0'}
 
       handleClick(e) {
-        this.dispatchEvent(new CustomEvent('patadita', {detail: {kicked: true, composed: true}}));
+        var objectevent = 	{
+        		detail: {
+        			nombre: 'JLuis',
+        			apellido: "Iturbide"
+        		},
+        		bubbles: false,
+            composed : false,
+        		cancelable: true
+        	}
+
+        this.dispatchEvent(
+           new CustomEvent('patadita', objectevent));
       }
     }
     customElements.define(MycustomEvent0.is, MycustomEvent0);
@@ -20,9 +31,8 @@
 </dom-module>
 
 
-
 <script>
     document.querySelector('mycustom-event0').addEventListener('patadita', function (e) {
-        console.log(e.detail.kicked); // true
+        console.log("Desde DOM del control " + e.detail.nombre); // true
     })
 </script>

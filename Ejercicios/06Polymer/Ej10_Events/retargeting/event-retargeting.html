@@ -1,0 +1,25 @@
+<link rel="import"  href="https://polygit.org/polymer+^v2.6.0/webcomponentsjs+^v1.3.0/iron-*+polymerelements+^v2.0.0/components/polymer/polymer-element.html">
+
+<dom-module id="event-retargeting">
+  <template>
+    <button id="myButton">Click Me</button>
+  </template>
+
+  <script>
+    class EventRetargeting extends Polymer.Element {
+      static get is() {return 'event-retargeting'}
+
+      ready() {
+        super.ready();
+        this.$.myButton.addEventListener('click', e => {this._handleClick(e)});
+      }
+
+      _handleClick(e) {
+        console.info(e.target.id + ' was clicked.');
+      }
+
+    }
+
+    customElements.define(EventRetargeting.is, EventRetargeting);
+  </script>
+</dom-module>

@@ -1,11 +1,23 @@
 <link rel="import"  href="https://polygit.org/polymer+^v2.6.0/webcomponentsjs+^v1.3.0/iron-*+polymerelements+^v2.0.0/components/polymer/polymer-element.html">
-<!-- import the iron-input element -->
 <link rel="import"  href="https://polygit.org/polymer+^v2.6.0/webcomponentsjs+^v1.3.0/iron-*+polymerelements+^v2.0.0/components/iron-input/iron-input.html">
+<link rel="import"  href="https://polygit.org/polymer+^v2.6.0/webcomponentsjs+^v1.3.0/iron-*+polymerelements+^v2.0.0/components/polymer/lib/utils/render-status.html">
+<link rel="import"  href="https://polygit.org/polymer+^v2.6.0/webcomponentsjs+^v1.3.0/iron-*+polymerelements+^v2.0.0/components/iron-icon/iron-icon.html">
 
 <dom-module id="life-cycle">
 
   <template>
+    <style>
+      /* local styles go here */
+      :host {
+        display: inline-block;
+      }
+      iron-icon {
+        fill: blue;
+        stroke: lightgray;
+      }
+    </style>
     <p>[[description]]</p>
+    <iron-icon icon="star"></iron-icon>
   </template>
 
   <script>
@@ -19,7 +31,12 @@
         Use for one-time set-up before property values are set.
         */
         super();
-        console.log("constructor() " + this.id);
+        //Defer non critical work until after first paint
+        console.log("constructor() ..1 " + this.id);
+        Polymer.RenderStatus.afterNextRender(this, function() {
+          console.log("Polymer.RenderStatus.afterNextRender(this, function() " + this.id);
+        });
+        console.log("constructor() ..2 " + this.id);
       }
 
       ready() {

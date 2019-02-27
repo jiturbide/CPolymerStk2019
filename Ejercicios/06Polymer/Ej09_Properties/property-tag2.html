@@ -2,7 +2,7 @@
 <!-- import the iron-input element -->
 <link rel="import"  href="https://polygit.org/polymer+^v2.6.0/webcomponentsjs+^v1.3.0/iron-*+polymerelements+^v2.0.0/components/iron-input/iron-input.html">
 
-<dom-module id="property-tag1">
+<dom-module id="property-tag2">
 
   <template>
     <style>
@@ -15,20 +15,20 @@
     <p>Autor <b>[[owner]]</b></p>
 
     <label for="txta">Valor A: </label>
-    <iron-input id="txta" bind-value="{{valuea}}" allowed-pattern="\d" auto-validate>
-      <input pattern="\d+" placeholder="Operando 1">
-    </iron-input>
+    <iron-input id="txta" bind-value="{{valuea}}" >
+      <input placeholder="Valor 1">
+    </iron-input> <br>
     <label for="txtb">Valor B: </label>
-    <iron-input id="txtb" bind-value="{{valueb}}" allowed-pattern="\d" auto-validate>
-      <input pattern="\d+" placeholder="Operando 2">
-    </iron-input>
+    <iron-input id="txtb" bind-value="{{valueb}}" >
+      <input placeholder="Valor 2">
+    </iron-input> <br>
     <iron-input id="txtresult" bind-value="[[result]]" >
       <input pattern="\d+">
     </iron-input>
   </template>
 
   <script>
-    class PropertyTag1 extends Polymer.Element {
+    class PropertyTag2 extends Polymer.Element {
       constructor() {
         super();
         let f = new Date();
@@ -84,7 +84,7 @@
       }
 
     }
-    customElements.define(PropertyTag1.is, PropertyTag1);
+    customElements.define(PropertyTag2.is, PropertyTag2);
   </script>
 
 </dom-module>

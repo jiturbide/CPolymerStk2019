@@ -2,7 +2,7 @@
 <!-- import the iron-input element -->
 <link rel="import"  href="https://polygit.org/polymer+^v2.6.0/webcomponentsjs+^v1.3.0/iron-*+polymerelements+^v2.0.0/components/iron-input/iron-input.html">
 
-<dom-module id="property-tag2">
+<dom-module id="property-change-notification">
 
   <template>
     <style>
@@ -25,17 +25,15 @@
     <iron-input id="txtresult" bind-value="[[result]]" >
       <input pattern="\d+">
     </iron-input>
-    <p>Resultado: [[_operandb(valuea, valueb)]]</p>
   </template>
 
   <script>
-    class PropertyTag2 extends Polymer.Element {
+    class PropertyChangeNotification extends Polymer.Element {
       constructor() {
         super();
-        let f = new Date();
-        console.log("Loaded at " + f);
+        console.log("Loaded at " + new Date());
       }
-      static get is() { return "property-tag2"; }
+      static get is() { return "property-change-notification"; }
 
       // configure the owner property
       static get properties() {
@@ -51,41 +49,41 @@
             type: Number,
             value: 0,
             readOnly : false,
-            notify : false,
+            notify : true,
             observer: '_valueaChanged'
           },
           valueb : {
             type: Number,
             value: 0,
             readOnly : false,
-            notify : false,
+            notify : true,
             observer: '_valuebChanged'
           },
           result : {
             type: Number,
             value: 0,
-            computed: '_operandb(valuea, valueb)'
+            computed: 'operandb(valuea, valueb)'
           }
 
         };
       }
 
       _valueaChanged(newValue, oldValue) {
-        console.log(`A newValue: ${newValue} oldValue: ${oldValue}`);
+        //console.log(`A newValue: ${newValue} oldValue: ${oldValue}`);
       }
 
       _valuebChanged(newValue, oldValue) {
-        console.log(`B newValue: ${newValue} oldValue: ${oldValue}`);
+        //console.log(`B newValue: ${newValue} oldValue: ${oldValue}`);
       }
 
-      _operandb(a, b) {
+      operandb(a, b) {
         let total = parseInt(a) + parseInt(b);
         console.log("a+b: " + total);
         return total;
       }
 
     }
-    customElements.define(PropertyTag2.is, PropertyTag2);
+    customElements.define(PropertyChangeNotification.is, PropertyChangeNotification);
   </script>
 
 </dom-module>

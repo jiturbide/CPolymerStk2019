@@ -41,9 +41,9 @@
         return {
           owner: {
             type: String,
-            value: 'JLIL',
-            readOnly : true,
-            notify : false,
+            value: '',
+            readOnly : false,
+            notify : true,
             reflectToAttribute : true
           },
           valuea : {
@@ -67,6 +67,12 @@
           }
 
         };
+      }
+
+      ready() {
+        super.ready();
+        //Funciona solo si reflectToAttribute : true, readOnly : false, notify : true
+        this.setAttribute('owner', "JLIL");
       }
 
       _valueaChanged(newValue, oldValue) {

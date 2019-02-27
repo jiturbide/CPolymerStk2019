@@ -24,6 +24,13 @@
       }
     </style>
 
+    <!--
+     Para asignar valores a atributos de un elemento estandar y no a propiedades declaradas de Polymer:
+     Sólo se pueden hacer de una dirección (one way binding).
+     Internamente Polymer los implementa con el método nativo setAttribute()
+     En algunos navegadores puede que funcione el binding a atributos sin colocar el "$".
+     -->
+
     <ul>
       <li on-click="marcarBueno" id="opcionbueno" class$="[[buenoClass]]"> Bueno</li>
       <li on-click="marcarRegular" id="opcionregular" class$="[[regularClass]]"> Regular</li>

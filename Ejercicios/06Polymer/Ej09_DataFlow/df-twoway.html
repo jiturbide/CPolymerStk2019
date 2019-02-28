@@ -11,7 +11,7 @@
         return {
           someProp: {
             type: String,
-            notify: true,
+            notify: true, //implicitamente readOnly=false
             observer : '_printvalue'
           }
         };
@@ -47,7 +47,7 @@
         return {
           algo : {
             type: String,
-            value: 'NOT-SET',
+            value: 'NOT-SET',  //implicitamente readOnly=false, notify=true
             observer: '_printvalue' }
         };
       }

@@ -9,16 +9,18 @@
 
       static get properties() {
         return {
-          someProp: {
+          someprop: {
             type: String,
-            //notify: true, //Sin Notificacion
-            observer : '_printvalue'
+            notify: true, //Sin Notificacion
+            observer : '_printvalue',
+            composed : true,
+            bubbles:true
           }
         };
       }
 
       _printvalue() {
-          console.log('XTarget: ' + this.someProp);
+          console.log('XTarget: ' + this.someprop);
         }
     }
 
@@ -31,7 +33,7 @@
   <template>
     <!-- changes to "value" propagate downward to "someProp" on target -->
     <!-- changes to "someProp" are not notified to host due to notify:false y -->
-    <x-target some-prop="{{algo}}"></x-target>
+    <x-target id="xt" someprop="{{algo}}"></x-target>
 
     <label for="txtis">Escribe tu usuario: </label>
     <iron-input id="txtis" bind-value="{{algo}}" >
@@ -49,7 +51,7 @@
           algo : {
             type: String,
             value: 'NOT-SET',
-            observer: '_printvalue' }
+            observer: '_printvalue'}
         };
       }
 
@@ -57,8 +59,20 @@
         console.log('XHost: ' + this.algo);
       }
 
+    ready() {
+      super.ready();
     }
 
+    connectedCallback() {
+      super.connectedCallback();
+      this.$.xt.addEventListener('someprop-changed', function (e) {
+          console.log('control: ' + e.detail.value);
+      });
+    }
+
+  }
     customElements.define(XHost.is, XHost);
+
+
   </script>
 </dom-module>

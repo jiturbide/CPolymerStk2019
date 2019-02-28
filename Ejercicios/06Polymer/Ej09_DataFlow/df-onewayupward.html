@@ -11,10 +11,16 @@
         return {
           someProp: {
             type: String,
+            value : 'VALOR INICIAL',
             notify: true,
+            readOnly: true,
             observer : '_printvalue'
           }
         };
+      }
+
+      ready() {
+        console.log("this.someProp: " + this.someProp);
       }
 
       _printvalue() {

@@ -1,0 +1,54 @@
+  <base href="https://cdn.rawgit.com/download/polymer-cdn/2.6.0.2/lib/">
+  <script src="webcomponentsjs/webcomponents-loader.js"></script>
+  <link rel="import" href="polymer/polymer.html">
+  <link rel="import" href="polymer/lib/elements/dom-if.html">
+  <link rel="import" href="iron-ajax/iron-ajax.html">
+
+  <dom-module id="x-ironajaxpost">
+    <template>
+      <iron-ajax id="ajaxUser"
+                 url="//httpbin.org/post"
+                 method="post"
+                 handle-as="json"
+                 content-type="application/json"
+                 body="[[body]]"
+                 loading="{{loading}}"
+                 on-response="saveUserCredentials"
+                 last-response="{{user}}"></iron-ajax>
+
+      <button on-click="send" disabled="[[loading]]">Send</button>
+      <h2>Output:</h2>
+
+      <template is="dom-if" if="[[loading]]">Loading...</template>
+      <pre>[[json(user)]]</pre>
+    </template>
+
+    <script>
+      class XIronAjaxPost extends Polymer.Element {
+         static get is() { return 'x-ironajaxpost'; }
+
+         static get properties() {
+           return {
+             loading: {
+               type: Boolean,
+               value: false
+             }
+           };
+         }
+
+         send() {
+           this.body = {"username": "user", "password": "pass"};
+           this.$.ajaxUser.generateRequest();
+         }
+
+         json(s) {
+           return JSON.stringify(s, null, 2);
+         }
+
+         saveUserCredentials(e) {
+           console.log('response', e.detail.response);
+         }
+       }
+       customElements.define(XIronAjaxPost.is, XIronAjaxPost);
+    </script>
+  </dom-module>

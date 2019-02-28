@@ -11,8 +11,8 @@
         return {
           someProp: {
             type: String,
-            notify: true,
-            readOnly: true
+            notify: false,
+            readOnly: true,
             observer : '_printvalue'
           }
         };
@@ -32,7 +32,7 @@
   <template>
     <!-- changes to "value" are ignored by child because "someProp" is read-only -->
     <!-- changes to "someProp" don't propagate upward because of the one-way binding -->
-    <x-target some-prop="[[algo]]"></x-target>
+    <x-target some-prop="{{algo}}"></x-target>
 
     <label for="txtis">Escribe tu usuario: </label>
     <iron-input id="txtis" bind-value="{{algo}}" >
@@ -43,7 +43,7 @@
   <script>
     class XHost extends Polymer.Element {
 
-      static get is() {return 'df-df-nodataflow';}
+      static get is() {return 'df-nodataflow';}
 
       static get properties() {
         return {

@@ -20,6 +20,7 @@ this.set('address.street', 'Half Moon Street');
 this.push('users', { name: 'Maturin'});
 
 // Notify Polymer that the value has changed
+this.address.street = 'Elm Street';
 this.notifyPath('address.street');
 
 # Data binding

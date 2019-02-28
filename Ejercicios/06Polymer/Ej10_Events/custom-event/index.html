@@ -17,13 +17,21 @@
 
         var c1 = document.getElementById('me1');
         c1.addEventListener('patadita', function (e) {
-            console.log('control: ' + e.target.id); // true
+            console.log('control: ' + e.target.id);
             txt.value = `${e.detail.nombre}@softtek.com `;
         })
         var c2 = document.getElementById('me2')
         c2.addEventListener('patadita', function (e) {
-            console.log('control: ' + e.target.id); // true
+            console.log('control: ' + e.target.id);
             txt.value = `${e.detail.apellido}@softtek.com`;
+        })
+        document.addEventListener('patadita', function (e) {
+            console.log('document: ' + 'document@softtek.com');
+            txt.value = `document@softtek.com`;
+        })
+        window.addEventListener('patadita', function (e) {
+            console.log('window: ' + 'window@softtek.com');
+            txt.value = `window@softtek.com`;
         })
     </script>
   </body>

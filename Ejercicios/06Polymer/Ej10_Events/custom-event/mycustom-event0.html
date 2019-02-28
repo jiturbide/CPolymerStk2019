@@ -2,7 +2,8 @@
 
 <dom-module id="mycustom-event0">
   <template>
-    <button on-click="handleClick">Kick Me</button>
+    <!-- <button id="btn" on-click="handleClick">Kick Me</button> -->
+    <button id="btn">Kick Me</button>
   </template>
 
   <script>
@@ -10,14 +11,25 @@
 
       static get is() {return 'mycustom-event0'}
 
+      ready() {
+        super.ready();
+        this.$.btn.addEventListener('click', e => this.handleClick(e));
+        this.addEventListener('click', e => this.handleClick(e));
+      }
+
       handleClick(e) {
+        // Backwards compatibility.
+        // The fire instance method in the legacy API sets both
+        // bubbles and composed to true by default.
+        // To get the same behavior, you need to specify both options when you
+        // create a custom event, as shown above.
         var objectevent = 	{
         		detail: {
         			nombre: 'JLuis',
         			apellido: "Iturbide"
         		},
-        		bubbles: false,
-            composed : false,
+        		bubbles: true,
+            composed : true,
         		cancelable: true
         	}
 
@@ -33,6 +45,7 @@
 
 <script>
     document.querySelector('mycustom-event0').addEventListener('patadita', function (e) {
-        console.log("Desde DOM del control " + e.detail.nombre); // true
+        console.info("Desde DOM del control ");
+        console.info(e.composedPath()); // true
     })
 </script>

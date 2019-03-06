@@ -1,0 +1,104 @@
+<link rel="import" href="./bower_components/polymer/polymer-element.html">
+<link rel="import" href="./bower_components/paper-button/paper-button.html">
+<link rel="import" href="./x-notifier.html">
+<script src="./MyRGB.js" charset="utf-8"></script>
+
+<dom-module id="x-host">
+  <template>
+    <style>
+      :host {
+        display: block;
+        font-family: Roboto, Noto, sans-serif;
+      }
+    </style>
+    <p>Color generado: ([[rgbValues.red]], [[rgbValues.green]], [[rgbValues.blue]])</p>
+      <x-notifier id="xnred" rgb-option="Red"></x-notifier><br>
+      <x-notifier id="xngreen" rgb-option="Green"></x-notifier><br>
+      <x-notifier id="xnblue" rgb-option="Blue"></x-notifier><br>
+  </template>
+
+  <script>
+    'use strict';
+
+    /**
+     * `x-host`
+     * Ejemplo de Observers y notifiers
+     *
+     * @customElement
+     * @polymer
+     * @demo demo/index.html
+     */
+    class XHost extends Polymer.Element {
+      static get is() { return 'x-host'; }
+      static get properties() {
+        return {
+          rgbValues : {
+            type: Object,
+            value: new MyRGB(),
+            notify: true,
+            readOnly: false,
+            observer: 'rgbValuesObserver'
+          }
+        };
+      }
+
+      ready() {
+        super.ready();
+        console.log(this.rgbValues);
+      }
+
+      rgbValuesObserver() {
+        // console.log("Algo cambio");
+      }
+      greenValueListener(e) {
+        this.rgbValues.green = e.detail.value;
+        // this.set('rgbValues.green', e.detail.value);
+        // this.notifyPath('rgbValues');
+        this._updateBackgroundColor();
+      }
+      blueValueListener(e) {
+        this.rgbValues.blue = e.detail.value;
+        // this.set('rgbValues.blue', e.detail.value);
+        // this.notifyPath('rgbValues.blue');
+        this._updateBackgroundColor();
+      }
+      redValueListener(e) {
+        // Apunte06 Hacer observable el cambio
+        this.rgbValues.red = e.detail.value;
+        // this.set('rgbValues.red', e.detail.value);
+        // this.notifyPath('rgbValues.red');
+        this._updateBackgroundColor();
+      }
+
+      connectedCallback() {
+        super.connectedCallback();
+        console.log("connectedCallback");
+        //Apunte05 Alta de Listeners en HOST
+        // this.$.xnred.addEventListener('color-number-changed', e => this.redValueListener(e));
+        // this.$.xngreen.addEventListener('color-number-changed', e => this.greenValueListener(e));
+        // this.$.xnblue.addEventListener('color-number-changed', e => this.blueValueListener(e));
+
+        //Apunte07
+        //this.addEventListener('color-number-changed', e => console.log('color-number-changed'));
+        // this.addEventListener('rgb-changed-event', e => console.log(e.composedPath()));
+      }
+
+      disconnectedCallback(){
+        super.disconnectedCallback();
+        console.log("disconnectedCallback");
+      }
+
+      _updateBackgroundColor() {
+        let r = this.rgbValues.red;
+        let g = this.rgbValues.green;
+        let b = this.rgbValues.blue;
+        let rgb = `rgb( ${r}, ${g}, ${b})`;
+        console.log('Desde x-host: ' + rgb);
+        this.style.backgroundColor = rgb;
+      }
+
+    }
+
+    window.customElements.define(XHost.is, XHost);
+  </script>
+</dom-module>

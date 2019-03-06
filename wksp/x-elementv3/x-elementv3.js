@@ -1,14 +1,14 @@
-import {html, PolymerElement} from './node_modules/@polymer/polymer/polymer-element.js';
-
+import {html, PolymerElement} from '@polymer/polymer/polymer-element.js';
+import '@polymer/paper-button/paper-button.js';
 /**
- * `x-element3`
+ * `x-elementv3`
  *
  *
  * @customElement
  * @polymer
  * @demo demo/index.html
  */
-class XElement3 extends PolymerElement {
+class XElementv3 extends PolymerElement {
   static get template() {
     return html`
       <style>
@@ -23,10 +23,10 @@ class XElement3 extends PolymerElement {
     return {
       prop1: {
         type: String,
-        value: 'x-element3',
+        value: 'x-elementv3',
       },
     };
   }
 }
 
-window.customElements.define('x-element3', XElement3);
+window.customElements.define('x-elementv3', XElementv3);

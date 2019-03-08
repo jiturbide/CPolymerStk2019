@@ -72,10 +72,10 @@
         //Apunte05 Alta de Listeners en HOST
         this.$.xnred.addEventListener('color-number-changed', e => this.redValueListener(e));
         this.$.xngreen.addEventListener('color-number-changed', e => this.greenValueListener(e));
-        this.$.xnblue.addEventListener('color-number-changed', e => this.blueValueListener(e));
+        this.$.xnblue.addEventListener('color-number-changed', e => console.log(e));
 
         //Apunte07
-        this.addEventListener('color-number-changed', e => console.log('color-number-changed'));
+        this.addEventListener('color-number-changed', e => console.log('color-number-changed 999'));
         this.addEventListener('rgb-changed-event', e => console.log(e.composedPath()));
       }
 

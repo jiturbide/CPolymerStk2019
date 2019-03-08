@@ -1,0 +1,217 @@
+Tiempo 150 minutos
+25 Preguntas
+05 POO
+10 Javascript
+10 Polymer
+
+USAR
+IDE Atom
+Probaron su JS con Node JS
+Chrome NO estaba permitido usar la consola
+La pantalla se maximiza y no permite copy paste
+No se permite copiar y pegar codigo.
+En todas es una respuesta por Pregunta
+
+POO ------------------------------------------------------------
+  A que se refiere cuando los detalles de internos de una clase pueden ser ocultados del exterior
+  Crear nuevas clases a partir de existentes extendiendo e ir refinando sus capacidades
+Cual de las siguientes afirmaciones se refiere al polimorfismo?
+  Ocultamiento del estado de un objeto
+  Capacidad de suministrar datos al codigo
+  Capacidad que tienen los objetos al responder a un evento en funcion de los parametros utilizados en su invocacion
+  Cuando un objeto adquiere todas las propiedades de otro
+A que se refiere cuando la informacion de una clase debe ser coherente y relacionada con la misma?
+  Alta cohesion
+  Especializacion
+  Bajo acoplamiento
+A que se refiere Herencia?
+  Evita que otros objetos modificquen o tengan acceso a las propiedades encapsuladas de un objeto
+  La clase empleado es la superclase de las clases EmpleadoSindicalizado, EmpleadoDeConfianza, EmpleadoExterno
+  Las funciones se resuelven en tiempo de ejecución en lugar de tiempo de compilación
+  Alto acoplamiento y Baja Cohesion son el resultado de una jerarquia de clases bien definida
+
+La alta cohesion deberia ser acompañada de
+  Polimorfismo
+  Instancias
+  Bajo acoplamiento
+  Patron de Diseño Factory Method
+Metodo especial que permite inicial valores de un objeto
+  Constructor
+
+A que se refiere una clase derivada?
+  Herencia multiple
+  Herencia jerarquica
+
+Cuando 2 o mas clases sirven como clase base para una clase derivada la situacion se conoce como:
+  Polimorfismo
+  Herencia multiple
+  Encapsulamiento
+  Herencia jerarquica
+  Ninguna de las anteriores
+
+Cual es la diferencia entre un objeo y una clase?
+  Que el objeto generaba funciones, valores para que la clase las utilizara.
+  Que el objeto era una instancia de la clase
+
+JS ------------------------------------------------------
+Cual de lo siguiente no es una caracteristica de JS
+  Bajo tipado
+  Uso obligatorio de ;   <------
+  do es una palabra reservada
+  Es sensible a mayuscula y minusculas
+
+Cual es la forma correcta de convertir de Objeto JS a JSON?
+Json.parse();
+stringfy();
+
+Cual es la forma correcta de convertir JSON a Objeto JS?
+Json.parse();
+stringfy();
+
+Q -----------
+Que devuelve?:
+var square = number => number*number
+
+
+Q -----------
+function foo() {
+   return 5
+}
+
+let myvar = foo;
+
+Q -----------
+Que se asigna a myvar?
+funcion
+5
+undefined
+
+Q -----------
+let x = "4" + 4 + 5;
+let y = 4 + 4 + "5";
+console.log(x + " " + y);
+
+Q -----------
+var x;
+var y = x === 10;
+Cual es el valor de y?
+
+Q -----------
+function suma(x, y=2, z=7){
+  return x+y+z;
+};
+console.log(suma(1) === 10); //true
+
+
+Q -----------
+Que tipo de dato es null?
+String
+Function
+Object  <---- typeof(null)
+Integer
+
+Q -----------
+var x;
+var y = x === null;
+Cual es el valor de y?
+
+Q -----------
+Como se declaran variables de bloque?
+let
+var
+const
+
+
+Polymer --------------------------------------------------
+Q -----------
+Cuando se asigna un observer a 2 propiedades Que tipo de observer?
+Simple
+Doble
+Compuesto
+Binario
+
+Q -----------
+Que tipo de evento se dispara ?
+name {type: String, value: '', notify: true}
+
+this.set('name', 'cesar');
+
+Que tipo de notificacion se lanza:
+name-changed
+name-notified
+name-modified
+no se dispara ningun evento
+
+
+Q -----------
+Arreglo personas, con propiedades apellido paterno, se tienen 5 elementos
+{name:, lastname: }
+Cual era la forma en Polymer de quitar el 3er elemento de ese arraglo?
+this.splice(persons, 2, 1);
+this.splice('persons', 2, 1);
+this.[2] = null;
+Ninguna de las anteriores
+
+Q -----------
+A la posicion 4 cambiarle el nombre
+this.set('persons.4.lastname', "juan");     <---------
+this.set('persons.[4].lastname', "juan");
+this.set('persons[4]lastname', "juan");
+this.persons[4].lastname = "juan";
+
+Q -----------
+Para que sirve filter
+dom module
+dom repeat
+dom if
+dom filter
+
+Q -----------
+Otras Preguntas
+Que tipo de valor puede tener una propiedad
+
+Q -----------
+Como bindear una propiedad a un componente?
+
+Q -----------
+Cual de los siguientes metodos no forma parte del ciclo de vidad de polymer?
+
+constructor()
+connectedCallaback()
+disconnectedCallback()
+connectedEvent()
+attributeChangedCallaback()
+
+Q -----------
+Como hacer que si la edad es mayor a 10 se pinte un elemento de rojo o azul?
+
+dom if else
+dom if y despues dom else
+Hacer dom if para cada validacion
+Todas las anteriores
+
+Q -----------
+<dom repeat items='persons' as='person'>
+   <dom if is=[!_funcion([[person.edad]], 18)]>
+
+_function(param, edad) {
+  return param > edad;
+}
+
+Respuestas:
+Pinta todos los mayores de 18
+Pinta todos los menores de 18
+No Pinta nada
+
+Como se generan los eventos de Polymer?
+this.dispatchEvent(new CustomEvent(), objeto);
+
+
+
+
+CSS ---------------------------------------
+
+Como hacer que el texto tenga color azul default?
+: host {
+  apply
+}

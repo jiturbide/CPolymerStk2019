@@ -1,0 +1,100 @@
+<link rel="import" href="./bower_components/polymer/polymer-element.html">
+<link rel="import" href="./bower_components/iron-input/iron-input.html">
+
+<dom-module id="ex04-observercomplexobj">
+  <template>
+      <p>Ejemplo 04 Observer compuesto - CURP </p>
+      <label for="txtnombre">Nombre: </label>
+      <iron-input id="txtnombre" bind-value="{{pers.nombre}}" >
+        <input placeholder="Tu edad" size='10'>
+      </iron-input> <br>
+      <label for="txtsexo">Sexo: </label>
+      <iron-input id="txtsexo" bind-value="{{pers.sexo}}" >
+        <input placeholder="Tu edad" size='10'>
+      </iron-input> <br>
+      <label for="txtfhnac">Fecha Nac: </label>
+      <iron-input id="txtfhnac" bind-value="{{pers.fhnac}}" >
+        <input placeholder="Su edad" size='10'>
+      </iron-input> <br>
+      <label for="txtlugarnac">Lugar Nac: </label>
+      <iron-input id="txtlugarnac" bind-value="{{pers.lugarnac}}" >
+        <input placeholder="resultado" size='50'>
+      </iron-input>
+  </template>
+
+  <script>
+    class Persona {
+      constructor(nombre, sexo="H", fhnac="2000-01-01") {
+
+      }
+    }
+
+    class ExObserver03 extends Polymer.Element {
+      static get is() { return 'ex03-observercomplex'; }
+      static get properties() {
+        return {
+          tuedad : {
+            type: Number,
+            value : 20,
+            notify : false,
+            readOnly : false
+          },
+          suedad : {
+            type: Number,
+            value : 20,
+            notify : false,
+            readOnly : false
+          }
+        };
+      }
+
+      static get observers() {
+        return [
+          'analisisTuEdad(xtuedad)',
+          'analisisSuEdad(xsuedad)',
+          'analisisCompatibilidad(tuedad, suedad)'
+        ]
+      }
+      analisisTuEdad(x) {
+        if(x > 9) {
+          if(x < 20) {
+            console.log("TU Tas chavo");
+          } else if(x > 50) {
+            console.log("TU Tas Ruco");
+          } else {
+            console.log("TU Estas a buena edad");
+          }
+        }
+      }
+      analisisSuEdad(y) {
+        if(y > 9) {
+          if(y < 18) {
+            console.log("Ella esta chavita ");
+          } else if(y > 40) {
+            console.log("Cuidado, Ella esta experimentada");
+          } else {
+            console.log("Ella Good!");
+          }
+        }
+      }
+      analisisCompatibilidad(edad1, edad2) {
+        /* Formula de los 7: tuedad/2 + 7*/
+
+        let msg = 'Sin dictamen';
+        if(edad1 > 9 && edad2 > 9) {
+          let edadaceptada = edad1/2 + 7;
+          if(edad2 >= edadaceptada) {
+            msg = `Edad minima aceptada: ${edadaceptada}, OK `;
+          } else if(edad2 < edadaceptada) {
+            msg = `Edad minima aceptada: ${edadaceptada}, Asaltacunas o Suggar Daddy!`;
+          }
+          console.log(msg);
+        }
+        return msg;
+      }
+
+    }
+
+    window.customElements.define(ExObserver03.is, ExObserver03);
+  </script>
+</dom-module>

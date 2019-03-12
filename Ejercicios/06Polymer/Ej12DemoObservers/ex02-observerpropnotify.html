@@ -1,0 +1,39 @@
+<link rel="import" href="./bower_components/polymer/polymer-element.html">
+<link rel="import" href="./bower_components/iron-input/iron-input.html">
+
+<dom-module id="ex02-observerpropnotify">
+  <template>
+      <p>Ejemplo 02 Observer con captura de Eventos</p>
+      <label for="txta">Valor A: </label>
+      <iron-input id="txta" bind-value="{{valuea}}" >
+        <input placeholder="Valor A">
+      </iron-input> <br>
+  </template>
+
+  <script>
+    class ExObserver02 extends Polymer.Element {
+      static get is() { return 'ex02-observerpropnotify'; }
+      static get properties() {
+        return {
+          valuea : {
+            type: String,
+            value : 'zzz',
+            notify : true,
+            readOnly : false,
+            observer : '_observerA',
+            composed: true,
+            bubbles : true
+          }
+        };
+      }
+      _observerA(newvalue, oldvalue) {
+        //console.log(`Oldvalue: ${oldvalue} Newvalue: ${newvalue}`);
+      }
+      // _observerA() {
+      //   console.log("Algo cambio");
+      // }
+    }
+
+    window.customElements.define(ExObserver02.is, ExObserver02);
+  </script>
+</dom-module>

@@ -40,14 +40,18 @@ One-way, which only allows downwards data flow. Upward data flow is disabled. On
 notify: false,
 readOnly: true
 
+
 ## One-way, downward ---------
 notify: false,
 readOnly: false
+[[]]
 
 ## One-way, upward -----------
 notify: true,
 readOnly: true
+{{}}
 
 ## Two-way -------------------
 notify: true,
 readOnly: false
+{{}}

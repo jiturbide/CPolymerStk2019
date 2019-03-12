@@ -1,0 +1,36 @@
+<link rel="import" href="./bower_components/polymer/polymer-element.html">
+<link rel="import" href="./ex01-observersimple.html">
+<link rel="import" href="./ex02-observerpropnotify.html">
+<link rel="import" href="./ex03-observercomplex.html">
+
+<dom-module id="x-mainobservers">
+  <template>
+      <p><b>Demo Observers</b></p>
+      <ex01-observersimple id="ex01"></ex01-observersimple>
+      <ex02-observerpropnotify id="ex02"></ex02-observerpropnotify>
+      <ex03-observercomplex id="ex03"></ex03-observercomplex>
+  </template>
+
+  <script>
+    class XMainobservers extends Polymer.Element {
+      static get is() { return 'x-mainobservers'; }
+
+      connectedCallback() {
+        super.connectedCallback();
+        // this.addEventListener('valuea-changed', e => console.log(e));
+        // this.$.ex02.addEventListener('valuea-changed', e => relanzar(e));
+        /* Como relanzar el evento? */
+      }
+
+      // relanzar(e) {
+      //   crear objeto {
+      //       value: e.detail.value}
+      //   this.dispatchEvent(new CustomEvent('valuea-changed-patito', objeto));
+      //
+      // }
+
+    }
+
+    window.customElements.define(XMainobservers.is, XMainobservers);
+  </script>
+</dom-module>

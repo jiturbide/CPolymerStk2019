@@ -1,0 +1,49 @@
+<!-- import polymer-element -->
+<link rel="import"  href="https://polygit.org/polymer+^v2.6.0/webcomponentsjs+^v1.3.0/components/polymer/polymer-element.html">
+<link rel="import"  href="https://polygit.org/polymer+^v2.6.0/webcomponentsjs+^v1.3.0/components/polymer/lib/elements/dom-repeat.html">
+
+<dom-module id="postalcode-list">
+  <template>
+    <div> Employee list: </div>
+    <p></p>
+    <template is="dom-repeat" items="{{codes}}">
+        <p> # [[index]]
+          Codigo: <span>[[item.cp]]</span>
+          Colonia: <span>[[item.colonia]]</span>
+          Municipio: <span>[[item.municipio]]</span>
+          Estado: <span>[[item.estado]]</span>
+        </p>
+    </template>
+  </template>
+  <script>
+    class PostalCodeList extends Polymer.Element {
+      static get is() { return "postalcode-list"; }
+      static get properties() {
+        return {
+          codes : {
+            type : Array,
+            value() {
+              return [{
+          		idEstado : 9,
+          		estado : "Ciudad de México",
+          		idMunicipio : 10,
+          		municipio : "Álvaro Obregón",
+          		ciudad : "Ciudad de México",
+          		zona : "Urbano",
+          		cp : 1000,
+          		asentamiento : "San Ángel",
+          		tipo : "Colonia"
+          	}];
+          }
+        }
+      };
+      }
+      ready() {
+        super.ready();
+        console.log(this.codes);
+      }
+    }
+  customElements.define(PostalCodeList.is, PostalCodeList);
+  </script>
+
+</dom-module>

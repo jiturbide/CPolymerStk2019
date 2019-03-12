@@ -1,0 +1,48 @@
+<link rel="import" href="./bower_components/polymer/polymer-element.html">
+<link rel="import" href="./bower_components/iron-input/iron-input.html">
+
+<dom-module id="ex01-observersimple">
+  <template>
+      <p>Ejemplo 01 Observer simple</p>
+      <label for="txta">Valor A: </label>
+      <iron-input id="txta" bind-value="{{valuea}}" >
+        <input placeholder="Valor A">
+      </iron-input> <br>
+  </template>
+
+  <script>
+    class ExObserver01 extends Polymer.Element {
+      static get is() { return 'ex01-observersimple'; }
+      static get properties() {
+        return {
+          valuea : {
+            type: String,
+            value : 'zzz',
+            notify : true,
+            readOnly : false,
+            observer : '_observerA'
+          }
+        };
+      }
+      _observerA() {
+        console.log("Algo cambio en avalue");
+      }
+      _observerA(newvalue) {
+        console.log(`Newvalue: ${newvalue}`);
+      }
+      _observerA(newvalue, oldvalue) {
+        console.log(`Oldvalue: ${oldvalue} Newvalue: ${newvalue}`);
+      }
+
+      ready() {
+        super.ready();
+        //this._createPropertyObserver('valuea', '_anotherObserverForAvalue', true);
+      }
+      _anotherObserverForAvalue(value) {
+        console.log('_anotherObserverForAvalue: ' + value);
+       }
+    }
+
+    window.customElements.define(ExObserver01.is, ExObserver01);
+  </script>
+</dom-module>

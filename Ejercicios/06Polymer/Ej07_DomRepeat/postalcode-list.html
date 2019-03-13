@@ -1,18 +1,42 @@
-<!-- import polymer-element -->
-<link rel="import"  href="https://polygit.org/polymer+^v2.6.0/webcomponentsjs+^v1.3.0/components/polymer/polymer-element.html">
-<link rel="import"  href="https://polygit.org/polymer+^v2.6.0/webcomponentsjs+^v1.3.0/components/polymer/lib/elements/dom-repeat.html">
+
+<base href="https://cdn.rawgit.com/download/polymer-cdn/2.6.0.2/lib/">
+<link rel="import" href="polymer/polymer.html">
+<script src="webcomponentsjs/webcomponents-lite.js"></script>
+<link rel="import" href="iron-ajax/iron-ajax.html">
+<link rel="import" href="polymer/lib/elements/dom-repeat.html">
 
 <dom-module id="postalcode-list">
   <template>
-    <div> Employee list: </div>
-    <p></p>
-    <template is="dom-repeat" items="{{codes}}">
-        <p> # [[index]]
-          Codigo: <span>[[item.cp]]</span>
-          Colonia: <span>[[item.colonia]]</span>
-          Municipio: <span>[[item.municipio]]</span>
-          Estado: <span>[[item.estado]]</span>
+    <iron-ajax
+        id="igetcp"
+        method="get"
+        url="cpcdmx.json"
+        handle-as="json"
+        last-response="{{codes}}"
+        auto
+     >
+   </iron-ajax>
+
+    <div> Codigos Postales: </div>
+    <select value="{{sortVal::change}}">
+      <option value="optcolonia">Colonia</option>
+      <option value="optmunicipio">Municipio</option>
+      <option value="optcp">Codigo Postal</option>
+    </select>
+
+    <div hidden$="[[!cargando]]">Estamos cargando datos...</div>
+    <p># | Código | Colonia | Municipio | Estado </p>
+    <template is="dom-repeat" items="{{codes}}" as="reg"
+    filter="_filtrarColoniasPeligrosas"
+    sort="{{_sortPor(sortVal)}}"
+        >
+        <p>[[index]]
+          <span>[[reg.cp]]</span>
+          <span>[[reg.asentamiento]]</span>
+          <span>[[reg.municipio]]</span>
+          <span>[[reg.estado]]</span>
         </p>
+
     </template>
   </template>
   <script>
@@ -33,16 +57,69 @@
           		cp : 1000,
           		asentamiento : "San Ángel",
           		tipo : "Colonia"
-          	}];
+            	}];
+            }
+          },
+          cargando : {
+            type : Boolean,
+            value : false
+          },
+          sortVal : {
+            type : String,
+            value : 'optcp',
+            notify : false,
+            observer : "_observerSortVal"
           }
-        }
-      };
+        };
       }
       ready() {
         super.ready();
         console.log(this.codes);
       }
-    }
+
+      _handleResponse(e) {
+        console.log("_handleResponse");
+      }
+
+      _filtrarColoniasPeligrosas(cp) {
+        // if(cp.municipio.match(/['Iztapalapa' | 'Tlahuac']/i)) {
+        let regex = /Tláhuac|Iztapalapa/gi;
+        if(cp.municipio.match(regex)) {
+          return false;
+        } else {
+          return true;
+        }
+      }
+
+      _sortPorNombreColonia(cp) {
+        if (a.asentamiento === b.asentamiento) return 0;
+        return a.asentamiento < b.asentamiento ? -1 : 1;
+      }
+
+      _sortPor(criterio) {
+        switch(criterio) {
+            case 'optcolonia':
+              return function(a, b) {
+                if (a.asentamiento === b.asentamiento) return 0;
+                return a.asentamiento < b.asentamiento ? -1 : 1;
+              };
+            case 'optmunicipio':
+              return function(a, b) {
+                if (a.municipio === b.municipio) return 0;
+                return a.municipio < b.municipio ? -1 : 1;
+              };
+            case 'optcp':
+              return function(a, b) {
+                if (a.cp === b.cp) return 0;  //1111
+                return a.cp < b.cp ? -1 : 1;  //10000
+              };
+          }
+      }
+
+      _observerSortVal(newvalue) {
+        console.log('newvalue: ' + newvalue);
+      }
+    } //Fin clase
   customElements.define(PostalCodeList.is, PostalCodeList);
   </script>
 

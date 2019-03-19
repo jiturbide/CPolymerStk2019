@@ -1,0 +1,51 @@
+<!--
+  Cells Certification Test
+  Template generated for use on test
+
+  IMPORTANT: Not import external libraries or use webcomponents.org components
+
+    For debug we recommended use Glitch environment, fork this template:
+    https://glitch.com/edit/#!/remix/cells-certification-template
+
+	INSERT YOUR GLITCH LINK HERE:
+	REPLACE 'CustomComponent & custom-component' WITH THE NAME YOUR COMPONENT SHOULD HAVE
+-->
+
+<link rel="import" href="/bower_components/polymer/polymer.html">
+
+<dom-module id="frog-component">
+  <template>
+    <style>
+
+    </style>
+    <input id="txtLine" type="text" value="[]"/>
+    <input id="txtToMove" type="text" value="0"/>
+    <input id="txtFrogIndex" type="text" value="0"/>
+    <!--button id="btnMove" aria-label="Move">Move</button-->
+  </template>
+
+  <script>
+    class FrogComponent extends Polymer.Element {
+      constructor() {
+        super();
+        console.log("Constructor");
+        //this._line = [null,"frog", null, null, null, null];
+        this._line = [];
+        this._toMove = 1;
+        this._indexFrog = 0;
+      }
+      static get is() { return 'frog-component'; }
+      set line(v) { this._line = v; }
+      get line() { return this.line;}
+      set toMove(v) { this._toMove = v; }
+      get toMove() { return this.toMove;}
+      set indexFrog(v) { this._frogIndex = v; }
+      get indexFrog() { return this.frogIndex;}
+
+      connectedCallback() {
+        console.log("connected");
+      }
+    }
+    customElements.define(FrogComponent.is, FrogComponent);
+  </script>
+</dom-module>

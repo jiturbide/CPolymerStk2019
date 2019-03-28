@@ -1,19 +1,12 @@
 <html>
    <head>
      <title>Hola Mundo Firebase</title>
-      <!-- <script type="text/javascript" src="../bower_components/firebase/firebase.js"></script> -->
-      <!-- <script src="https://www.gstatic.com/firebasejs/5.9.0/firebase.js"></script> -->
 
       <!-- Firebase App is always required and must be first -->
       <script src="https://www.gstatic.com/firebasejs/5.9.0/firebase-app.js"></script>
-
-      <!-- Add additional services that you want to use -->
-      <!-- <script src="https://www.gstatic.com/firebasejs/5.9.0/firebase-auth.js"></script> -->
       <script src="https://www.gstatic.com/firebasejs/5.9.0/firebase-database.js"></script>
-      <!-- <script src="https://www.gstatic.com/firebasejs/5.9.0/firebase-firestore.js"></script>
-      <script src="https://www.gstatic.com/firebasejs/5.9.0/firebase-messaging.js"></script>
-      <script src="https://www.gstatic.com/firebasejs/5.9.0/firebase-functions.js"></script> -->
-            <script>
+
+      <script>
         // Initialize Firebase
         var config = {
           apiKey: "AIzaSyCCCweHrL48PwzFUIRvlXXV3nZtf3sFJXY",
@@ -30,10 +23,9 @@
 
    <body>
 
-      <p id="texto"></p>
-      <input type="button" name="Replace" value="Replace" onclick="freplace()"></input>
+      <p id="ptxt">Agregar elemento nuevo en BD Firebase</p>
       <input type="button" name="Agregar" value="Agregar" onclick="fpush()"></input>
-      <input type="button" name="Update" value="Update" onclick="fupdate()"></input>
+      <div id="divtxt"></p>
 
       <script type="text/javascript">
         console.log("Conexion con Firebase");
@@ -45,54 +37,29 @@
         console.log(_firechatRef);
         console.log(_firebaseApp);
 
-        var item = firebase.database().ref("players");
+        var reference = firebase.database().ref("cp");
 
-        console.log("item " + item);
-
-        var playersRef = ref.child("players");
-        var playersKey = playersRef.key();
-        console.log(":playersKey: " + playersKey);
-
-        function freplace() {
-          console.log("add()");
-          var playersRef = firebase.database().ref("players/");
-
-          playersRef.set ({
-             Bart: {
-                number: 11,
-                age: 30
-             },
-
-             Homero: {
-                number: 22,
-                age: 20
-             }
-          });
-        }
-
-        function fupdate() {
-          var johnRef = firebase.database().ref("players/Bart");
-
-          johnRef.update ({
-             "number": 10
-          });
-        }
+        console.log("item " + reference);
 
         function fpush() {
           console.log("Push");
-          var playersRef = firebase.database().ref("players");
+          var cpRef = firebase.database().ref("cp");
 
-            playersRef.push ({
-               name: "Benito",
-               number: 1,
-               age: 30
-            });
+          let cptmp = Math.floor((Math.random() * 10000));
+          let obj = {
+               codigopostal: cptmp,
+               asentamiento: 'Desconocido',
+               ciudad: 'Ciudad de Mexico',
+               pais: 'Mexico'
+            };
+          cpRef.push (obj);
 
-            playersRef.push ({
-               name: "Cucho",
-               number: 2,
-               age: 20
-            });
+          //Listener de evento agregar
+          reference.on("child_added", function(data) {
+             let d = document.getElementById("divtxt");
+             //console.log(data.val());
+             d.innerHTML = data.val().codigopostal;
+          });
         }
 
       </script>

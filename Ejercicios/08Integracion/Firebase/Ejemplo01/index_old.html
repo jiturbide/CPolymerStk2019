@@ -1,0 +1,95 @@
+<html>
+   <head>
+     <title>Hola Mundo Firebase</title>
+      <!-- <script type="text/javascript" src="../bower_components/firebase/firebase.js"></script> -->
+      <!-- <script src="https://www.gstatic.com/firebasejs/5.9.0/firebase.js"></script> -->
+
+      <!-- Firebase App is always required and must be first -->
+      <script src="https://www.gstatic.com/firebasejs/5.9.0/firebase-app.js"></script>
+
+      <!-- Add additional services that you want to use -->
+      <!-- <script src="https://www.gstatic.com/firebasejs/5.9.0/firebase-auth.js"></script> -->
+      <script src="https://www.gstatic.com/firebasejs/5.9.0/firebase-database.js"></script>
+      <!-- <script src="https://www.gstatic.com/firebasejs/5.9.0/firebase-firestore.js"></script>
+      <script src="https://www.gstatic.com/firebasejs/5.9.0/firebase-messaging.js"></script>
+      <script src="https://www.gstatic.com/firebasejs/5.9.0/firebase-functions.js"></script> -->
+            <script>
+        // Initialize Firebase
+        var config = {
+          apiKey: "AIzaSyCCCweHrL48PwzFUIRvlXXV3nZtf3sFJXY",
+          authDomain: "prueba-20190314.firebaseapp.com",
+          databaseURL: "https://prueba-20190314.firebaseio.com",
+          projectId: "prueba-20190314",
+          storageBucket: "prueba-20190314.appspot.com",
+          messagingSenderId: "327069951468"
+        };
+        firebase.initializeApp(config);
+      </script>
+
+   </head>
+
+   <body>
+
+      <p id="texto"></p>
+      <input type="button" name="Replace" value="Replace" onclick="freplace()"></input>
+      <input type="button" name="Agregar" value="Agregar" onclick="fpush()"></input>
+      <input type="button" name="Update" value="Update" onclick="fupdate()"></input>
+
+      <script type="text/javascript">
+        console.log("Conexion con Firebase");
+        var ref = firebase.database().ref();
+
+        let _firechatRef = ref;
+        let _firebaseApp = ref.database.app;
+
+        console.log(_firechatRef);
+        console.log(_firebaseApp);
+
+        var item = firebase.database().ref("cp");
+
+        console.log("item " + item);
+
+        //var cpRef = ref.child("cp");
+        //var cpKey = cpRef.key();
+        //console.log(":cpKey: " + cpKey);
+
+        function freplace() {
+          console.log("add()");
+          // var playersRef = firebase.database().ref("cp/");
+          // let cptmp = Math.floor((Math.random() * 10000));
+          //
+          // cpRef.set ({
+          //    '00000': {
+          //       codigopostal: cptmp,
+          //       asentamiento: 'Desconocido',
+          //       ciudad: 'Ciudad de Mexico',
+          //       pais: 'Mexico'
+          //    }
+          // });
+        }
+
+        function fupdate() {
+          var johnRef = firebase.database().ref("cp/narvarte");
+          //
+          // johnRef.update ({
+          //    "number": 10
+          // });
+        }
+
+        function fpush() {
+          console.log("Push");
+          var cpRef = firebase.database().ref("cp");
+
+          let cptmp = Math.floor((Math.random() * 10000));
+          let item = {
+               codigopostal: cptmp,
+               asentamiento: 'Desconocido',
+               ciudad: 'Ciudad de Mexico',
+               pais: 'Mexico'
+            };
+          cpRef.push (item);
+        }
+
+      </script>
+   </body>
+</html>

@@ -6,6 +6,97 @@
 <link rel="import" href="polymer/lib/elements/dom-repeat.html">
 
 <dom-module id="postalcode-list">
+  <style >
+    * {
+    font-family: arial, sans-serif;
+   }
+    :host {
+      display: block;
+    }
+
+    .responsive{
+      display:none
+    }
+
+    table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+  }
+
+  td, th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+  }
+
+  tr:nth-child(even) {
+    background-color: #dddddd;
+    color:black;
+  }
+  tr{
+    color:white;
+  }
+
+
+    @media only screen and (max-width: 760px),(min-device-width: 768px) and (max-device-width: 1024px)  {
+      /* Force table to not be like tables anymore */
+          table, thead, tbody, th, td, tr {
+                                      display: block;
+                                  }
+
+    .responsive{
+      display:block;
+    }
+
+    /* Hide table headers (but not display: none;, for accessibility) */
+    thead tr {
+                    position: absolute;
+                    top: -9999px;
+                    left: -9999px;
+    }
+
+    tr { border: 1px solid #ccc; }
+
+    td {
+        /* Behave  like a "row" */
+        border: none;
+        border-bottom: 1px solid #eee;
+        position: relative;
+        padding-left: 50%;
+      },
+
+    td:before {
+                    /* Now like a table header */
+                    position: absolute;
+                    /* Top/left values mimic padding */
+                    top: 6px;
+                    left: 6px;
+                    width: 45%;
+                    padding-right: 10px;
+                    white-space: nowrap;
+    }
+   table {
+          width: 100%;
+          border-collapse: collapse;
+              }
+      /* Zebra striping */
+      tr:nth-of-type(odd) {
+        background: #3A4173;
+      }
+      th {
+          background: #333;
+          color: white;
+          font-weight: bold;
+          display:none;
+          }
+      td, th {
+        padding: 6px;
+        border: 1px solid #ccc;
+        text-align: left;
+      }
+  </style>
+
   <template>
     <iron-ajax
         id="igetcp"
@@ -25,20 +116,30 @@
     </select>
 
     <div hidden$="[[!cargando]]">Estamos cargando datos...</div>
-    <p># | Código | Colonia | Municipio | Estado </p>
-    <template is="dom-repeat" items="{{codes}}" as="reg"
-    filter="_filtrarColoniasPeligrosas"
-    sort="{{_sortPor(sortVal)}}"
-        >
-        <p>[[index]]
-          <span>[[reg.cp]]</span>
-          <span>[[reg.asentamiento]]</span>
-          <span>[[reg.municipio]]</span>
-          <span>[[reg.estado]]</span>
-        </p>
 
-    </template>
+
+    <table>
+      <tr>
+        <th>Codigo Postal</th>
+        <th>Colonia</th>
+        <th>Municipio</th>
+        <th>Estado</th>
+      </tr>
+      <template is="dom-repeat" items="{{codes}}" index-as="index" as='reg'
+      filter="_filtrarColoniasPeligrosas"
+      sort="{{_sortPor(sortVal)}}"
+      >
+        <tr>
+          <td><p class="responsive"></p>[[reg.cp]]</td>
+          <td><p class="responsive"></p>[[reg.asentamiento]]</td>
+          <td><p class="responsive"></p>[[reg.municipio]]</td>
+          <td><p class="responsive"></p>[[reg.estado]]</td>
+        </tr>
+      </template>
+    </table>
   </template>
+
+
   <script>
     class PostalCodeList extends Polymer.Element {
       static get is() { return "postalcode-list"; }

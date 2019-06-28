@@ -39,7 +39,7 @@
           colorNumber: {
             type: Number,
             value: 0,
-            notify: false,    //Apunte03 notificacion?: color-number-changed
+            notify: true,    //Apunte03 notificacion?: color-number-changed
             readOnly: false, //Apunte01 Constante
             observer : '_colorNumberObserver'
           },
@@ -47,7 +47,7 @@
             type: String,
             value: 'White',
             notify: false,  //Propagar notificacion = false
-            readOnly: true,
+            readOnly: false,
             reflectToAttribute: true //Configurar desde un atributo del tag
           }
         };

@@ -52,3 +52,5 @@ Observers and computed properties
 Data binding
 Helper elements
 
+https://www.goconqr.com/p/5819053-quiz---object-oriented-javascript-quizzes
+https://www.careerride.com/online-practice-test/Oops

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>DOM Example</title>
+  </head>
+  <body>
+    <p>Ejemplo de cambio dinamico del DOM<p>
+    <input type="text" id="txtNuevoContenido" value="" onchange="fadd();"/>
+    <div id="contenido">Contenido original</div>
+
+    <script type="text/javascript">
+
+        function fadd() {
+          var control = document.getElementById('contenido');
+          var txtNuevo = document.getElementById('txtNuevoContenido');
+
+          let random = Math.floor(Math.random() * 10);
+          console.log("Random: " + random);
+
+          let btn = document.createElement("input");
+          btn.setAttribute("value", txtNuevo.value); //referencia
+          let label = txtNuevo.value;
+          //btn.setAttribute("value", label); //valor
+          btn.setAttribute("type", "button");
+          btn.addEventListener("click", (e, l=5) => { console.log(random); console.log(l); })
+          contenido.appendChild(btn);
+
+          txtNuevo.value = "";
+        }
+    </script>
+  </body>
+</html>

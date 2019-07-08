@@ -1,9 +1,15 @@
+// (function{
+//   function x{}
+//
+// })();
+
 // Closure variable scope
 function trickyAdd(number1, number2) {
+  'use strict';
   function doAdd() {
     return number1 + number2;
   }
-  number1 += 1;  //number1 = 2
+  number1 = number1 + 1;  //number1 = 2
   number2 += 2; //number2 = 3
   return doAdd();
 };
@@ -16,9 +22,9 @@ function outer() {
   function inner() {
     console.log(x);
   }
+  x = "hello world!";
   inner();
 }
-
 outer();
 
 // this and that
@@ -28,7 +34,8 @@ var myObj = {
   greet: function() {
     eso = this;
     innerGreet = function() {
-      console.log(eso.myVar);
+      console.log("innerGreet: " + eso.myVar);
+      console.log("innerGreet: " + this.myVar);
     };
     innerGreet();
   }

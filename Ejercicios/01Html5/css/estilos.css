@@ -1,13 +1,14 @@
+p {
+  color : blue;
+}
+.saludo {
+  color: red;
+}
+.etiqueta {
+  color : brown;
+}
 
-  p {
-    color : blue;
-  }
-  .saludo {
-    color: red;
-  }
-  .etiqueta {
-    color : brown;
-  }
-  #despedida {
-    color: orange;
-  }
+#despedida {
+  color : green;
+  background: black;
+}

@@ -6,7 +6,7 @@
   //const API_URL = 'https://www.lyricsfreak.com/d/depeche+mode/enjoy+the+silence_20039358.html'
   //const API_URL = 'https://jsonplaceholder.typicode.com/todos/1';
   const API_URL = 'http://127.0.0.1:8887/Ejercicios/03Js/promesasJs/cancion.html';
-
+  
   const control = document.querySelector('#article0');
 
    fetch(API_URL)

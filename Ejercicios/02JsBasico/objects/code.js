@@ -4,8 +4,8 @@ var obj_1 = {};
 var obj_2 = new Object();
 var obj_3 = Object.create(null);
 
-console.log("obj_1 => " + obj_1.toSource());
-console.log("obj_2 => " + obj_2.toSource());
+//console.log("obj_1 => " + obj_1.toSource());
+//console.log("obj_2 => " + obj_2.toSource());
 //console.log("obj_3 => " + obj_3); // obj_3 doesn't inherit anything
 
 var person = {
@@ -17,8 +17,8 @@ var person = {
   }
 };
 
-console.log("person => " + person.toSource());
-
+console.log("person => " + person);
+console.log(person);
 // Creating an object with new
 function Tree(type, height, age) {
   this.type = type;
@@ -28,7 +28,7 @@ function Tree(type, height, age) {
 
 var mapleTree = new Tree("Big Leaf Maple", 80, 50);
 
-console.log("mapleTree => " + mapleTree.toSource());
+//console.log("mapleTree => " + mapleTree.toSource());
 
 //Creating an object with prototypes
 var myChild = Object.create(Object.prototype); // Object {}
@@ -113,4 +113,3 @@ var myObj = {
   }
 };
 myObj.print();
-

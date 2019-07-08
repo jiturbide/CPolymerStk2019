@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>DOM Example</title>
+  </head>
+  <body>
+    <p>Ejemplo de cambio dinamico del DOM<p>
+    <input type="text" id="txtNuevoContenido" value="" onchange="fadd();"/>
+    <div id="contenido">Contenido original</div>
+
+    <script type="text/javascript">
+        function fadd() {
+          console.log("fadd()");
+          let txtNuevo = document.getElementById('txtNuevoContenido');
+          let control = document.getElementById('contenido');
+          let label = txtNuevo.value;
+          let btn = document.createElement("input");
+          btn.setAttribute("type", "button");
+          btn.setAttribute("value", label);
+          btn.addEventListener("click", e => {alert(label);});
+          control.appendChild(btn);
+          txtNuevo.value = "";
+        }
+    </script>
+  </body>
+</html>

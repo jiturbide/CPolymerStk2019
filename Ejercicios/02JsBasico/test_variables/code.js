@@ -11,3 +11,6 @@ var b;
 var c;
 var d;
 var e;
+
+
+console.log(typeof a);

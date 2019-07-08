@@ -7,7 +7,7 @@
   a boolean
   null
 
-  JSON syntax is derived from JavaScript object notation syntax:
+  JSON syntax is derived from JavaScript Object Notation syntax:
   Data is in name/value pairs
   Data is separated by commas
   Curly braces hold objects
@@ -43,7 +43,10 @@
   var person = new Person("john", 32);
   console.log("object person: " + person.name);
   var personJson =JSON.stringify(person);
-  console.log("json string: " + personJson);
+  console.log("Stringfy ----------------------");
+  console.log(person);
+  console.log(personJson);
+
   //output: {"name":"john","age":32}
 
   console.log("Converting Strings to Objects -------------");

@@ -19,7 +19,7 @@
 /**/
 
 /* Ejemplo 04 --------------- */
-/**/
+/** /
 .contenedor{
     display:flex;
     flex-direction:column-reverse;
@@ -27,7 +27,7 @@
 /**/
 
 /* Ejemplo 05 --------------- */
-/**/
+/** /
 .contenedor{
     display:flex;
     flex-wrap:wrap;
@@ -43,33 +43,35 @@
 /**/
 
 /* Ejemplo 07 --------------- */
-/** /
+/* * /
 .contenedor{
     display:flex;
     flex-direction:row-reverse;
     flex-wrap:wrap-reverse;
 }
 /**/
-/* Ejemplo 00 --------------- */
+/* Ejemplo 00 */
 /**/
-	@media screen and (max-width:980px) {
+	@media  screen and (min-width:761px) and (max-width: 1600px)  {
    .contenedor{
        display:flex;
-       flex-direction : row;
+       flex-direction : row-reverse ;
    }
    .txtDesktop { display : block; }
    .txtMovil { display : none; }
+   .txtTablet { display : none; }
   }
-  @media screen and (max-width:700px) {
+  @media screen and (max-width: 760px) and (min-width: 481px) {
     .contenedor{
        display:flex;
-       flex-direction : column;
+       flex-direction : row;
    }
    .elemento {
        width:100%;
    }
    .txtDesktop { display : none; }
-   .txtMovil { display : block; }
+   .txtMovil { display : none; }
+   .txtTablet { display : block; }
   }
   @media screen and (max-width:480px) {
     .contenedor{
@@ -81,5 +83,7 @@
    }
    .txtDesktop { display : none; }
    .txtMovil { display : block; }
+   .txtTablet { display : none; }
+
   }
 /**/

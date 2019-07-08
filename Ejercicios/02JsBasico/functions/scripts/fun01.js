@@ -37,3 +37,21 @@ arrfun(20,30);
     return a+b;
   }
 )(23,45);
+
+/* ------------------------------------------------ */
+
+console.log("******* function scope*");
+
+(function() {
+  'use strict';
+  if (true) {
+    var x = "Declared in a block of code";
+  }
+  console.log("Value of x: " + x);
+})();
+
+
+//var points = [40, 100, 1, 5, 25, 10];
+points.sort();
+points.reverse();
+points.sort(function(a, b){return a - b});

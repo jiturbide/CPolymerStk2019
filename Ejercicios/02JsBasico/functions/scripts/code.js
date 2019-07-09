@@ -1,3 +1,10 @@
+/*
+ Declaration: function name(){}
+ Invocation: name();
+ Reference var: var x = name;
+ Variable declaration: var y : function(){};
+*/
+
 console.log("**Defining Functions**");
 // Defining Functions
 function multiply(x, y) {

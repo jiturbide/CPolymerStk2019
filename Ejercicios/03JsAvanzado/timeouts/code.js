@@ -14,6 +14,7 @@ function cancelTimeout() {
   console.log("cancelTimeout()");
   clearTimeout(timeoutId);
 }
+
 function startInterval() {
   if (!intervalId) {
     console.log("setting interval");
@@ -26,6 +27,7 @@ function startInterval() {
     console.log("interval set:" + intervalId);
   }
 }
+
 function cancelInterval() {
   console.log("cancelInterval()");
   clearInterval(intervalId);

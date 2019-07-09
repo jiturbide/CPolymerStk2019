@@ -1,4 +1,6 @@
-/* Callbacks */
+/* Callbacks
+http://www.cs.sjsu.edu/faculty/pearce/modules/lectures/web/javascript/dom.htm
+*/
 
 window.addEventListener("load", onWindowLoad);
 

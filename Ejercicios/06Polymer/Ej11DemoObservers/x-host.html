@@ -51,21 +51,21 @@
         // console.log("Algo cambio");
       }
       greenValueListener(e) {
-        this.rgbValues.green = e.detail.value;
-        // this.set('rgbValues.green', e.detail.value);
+        //this.rgbValues.green = e.detail.value;
+        this.set('rgbValues.green', e.detail.value);
         // this.notifyPath('rgbValues');
         this._updateBackgroundColor();
       }
       blueValueListener(e) {
-        this.rgbValues.blue = e.detail.value;
-        // this.set('rgbValues.blue', e.detail.value);
+        //this.rgbValues.blue = e.detail.value;
+        this.set('rgbValues.blue', e.detail.value);
         // this.notifyPath('rgbValues.blue');
         this._updateBackgroundColor();
       }
       redValueListener(e) {
         // Apunte06 Hacer observable el cambio
-        this.rgbValues.red = e.detail.value;
-        // this.set('rgbValues.red', e.detail.value);
+        //this.rgbValues.red = e.detail.value;
+        this.set('rgbValues.red', e.detail.value);
         // this.notifyPath('rgbValues.red');
         this._updateBackgroundColor();
       }
@@ -80,12 +80,15 @@
 
         //Apunte07
         //this.addEventListener('color-number-changed', e => console.log('color-number-changed'));
-        // this.addEventListener('rgb-changed-event', e => console.log(e.composedPath()));
+        //this.addEventListener('rgb-changed-event', e => console.log(e.composedPath()));
       }
 
       disconnectedCallback(){
         super.disconnectedCallback();
         console.log("disconnectedCallback");
+        this.$.xnred.removeEventListener('color-number-changed');
+        this.$.xngreen.removeEventListener('color-number-changed');
+        this.$.xnblue.removeEventListener('color-number-changed');
       }
 
       _updateBackgroundColor() {

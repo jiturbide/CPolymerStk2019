@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
+
+    <title>calculate-is demo</title>
+
+    <script src="../../webcomponentsjs/webcomponents-loader.js"></script>
+
+    <link rel="import" href="../../iron-demo-helpers/demo-pages-shared-styles.html">
+    <link rel="import" href="../../iron-demo-helpers/demo-snippet.html">
+    <link rel="import" href="../calculate-is.html">
+
+    <custom-style>
+      <style is="custom-style" include="demo-pages-shared-styles">
+      </style>
+    </custom-style>
+  </head>
+  <body>
+    <div class="vertical-section-container centered">
+      <h3>Basic calculate-is demo</h3>
+      <demo-snippet>
+        <template>
+          <calculate-is id="ci"></calculate-is>
+        </template>
+      </demo-snippet>
+
+      <script type="text/javascript">
+        let c = document.getElementById("ci");
+        console.log(ci);
+        c.addEventListener("softtekian-added-event", e => console.log(e);)
+      </script>
+    </div>
+  </body>
+</html>

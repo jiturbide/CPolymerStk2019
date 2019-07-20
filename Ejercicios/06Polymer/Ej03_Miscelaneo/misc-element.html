@@ -1,0 +1,47 @@
+<link rel="import"  href="https://polygit.org/polymer+^v2.6.0/webcomponentsjs+^v1.3.0/components/polymer/polymer-element.html">
+
+<dom-module id="misc-element">
+  <!-- Optional shadow DOM template -->
+  <template>
+    <style>
+      /* CSS rules for your element */
+    </style>
+
+    <!-- shadow DOM for your element -->
+    <div>nombre: [[name]] <br>
+      email: [[email]]
+    </div> <!-- data bindings in local DOM -->
+  </template>
+
+  <script>
+    class MiscElement extends Polymer.Element {
+      constructor() {
+        super();
+        console.log("Constructor");
+      }
+      static get is() { return 'misc-element'; }
+
+      static get properties() {
+        return {
+          name: {
+            type: String,
+            value: "Homero"
+          },
+          email: {
+            type: String,
+            value: 'homero@springfield.com'
+          }
+        }
+      }
+
+      // Add methods to the element's public API
+      greetMe() {
+        console.log(this.greeting);
+      }
+
+    }
+
+    customElements.define(MiscElement.is, MiscElement);
+  </script>
+
+</dom-module>

@@ -1,3 +1,4 @@
+//Data Manager
 class MyRGB{
   constructor() {
     this.red = 0;

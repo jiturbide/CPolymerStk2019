@@ -1,0 +1,108 @@
+<!-- Imports Polymer y componentes -->
+<link rel="import" href="../polymer/polymer-element.html">
+<link rel="import" href="../paper-button/paper-button.html">
+<link rel="import" href="../iron-input/iron-input.html">
+
+<!-- dom module -->
+<dom-module id="softtekian-data">
+   <!-- Template -->
+   <template>
+      <!-- Styles y HTML -->
+      <style>
+         :host {
+           display : block;
+           background : cyan
+         }
+      </style>
+        <h2> Este es mi componente softtekian data</h2>
+        <iron-input id="txtnombre" bind-value="{{nombre}}" allowed-pattern="[\w\s]" auto-validate>
+          <input pattern="[\w\s]+" placeholder="Escribe aqui tu Nombre">
+        </iron-input> <br>
+        <iron-input id="txtis" bind-value="{{is}}" allowed-pattern="[\w\s]" auto-validate>
+          <input pattern="[\w\s]+" placeholder="Escribe aqui tu IS">
+        </iron-input><br>
+        <iron-input id="txthobbie" bind-value="{{hobbie}}" allowed-pattern="[\w\s]" auto-validate>
+          <input pattern="[\w\s]+" placeholder="Escribe aqui tu Hobbie">
+        </iron-input><br>
+        <iron-input id="txtemail" bind-value="[[email]]" allowed-pattern="[\w\s]" auto-validate>
+          <input pattern="[\w\s]+" placeholder="Escribe aqui tu Email" readonly>
+        </iron-input><br>
+        <!-- <input type="button" name="Agregar" value="Agregar" on-click="altaSofttekian"></input> -->
+        <button on-click="registrarSofttekian">Registrar</button>
+        <p>Data Binding: [[email]] </p>
+        <p>Por Funcion: [[_calcularEmail(nombre)]]</p>
+        <p>Computed: [[emailcomputed]]</p>
+
+   </template>
+   <!-- Script -->
+   <script>
+     // Declaracion de la Clase
+     class SofttekianData extends Polymer.Element {
+       static get is() { return 'softtekian-data';}
+       static get properties() {
+         return {
+           nombre: { type : String, value : '', readOnly:false, observer : '_calcularEmailObserver' },
+           is : {type : String, value : '', readOnly : false},
+           email : {type : String, value: '', readOnly: false},
+           hobbie : {type : String, value : 'Dormir', readOnly : false},
+           emailcomputed : {type: String, computed : '_calcularEmail(nombre)'}
+         };
+       }
+       ready() {
+         super.ready();
+         //this._testAltaSofttekian();
+       }
+
+       _calcularEmailObserver(old, nuevo) {
+           this.email = this._calcularEmail(this.nombre);
+       }
+
+       _calcularEmail(n) {
+         return n + "@softtek.com";
+       }
+
+
+       registrarSofttekian() {
+         let s = new SofttekianDM(this.nombre, this.is, this.email, this.hobbie);
+          console.log(s);
+         //Lanzar un custom event softtekian-added-event
+         //crear el objeto de datos
+         let obj = {
+           detail : {
+             newsofttekian : s,
+             warnings : 2
+           },
+           bubbles : true,
+           composed : true
+         };
+
+         let ce = new CustomEvent("softtekian-added-event", obj);
+         this.dispatchEvent(ce);
+       }
+       //
+       // generarCorreo() {
+       //   console.log(this.nombre + "@softtek.com");
+       // }
+
+       _testAltaSofttekian() {
+         let s = new SofttekianDM('mimosa', 'MIMO', 'mimosa@softtek.com', 'enamorar');
+          console.log(s);
+         //Lanzar un custom event softtekian-added-event
+         //crear el objeto de datos
+         let obj = {
+           detail : {
+             newsofttekian : s,
+             warnings : 2
+           },
+           bubbles : true,
+           composed : true
+         };
+
+         let ce = new CustomEvent("softtekian-added-event", obj);
+         this.dispatchEvent(ce);
+       }
+     }
+     // Registro de la clase en el DOM -->
+     window.customElements.define(SofttekianData.is, SofttekianData);
+   </script>
+</dom-module>

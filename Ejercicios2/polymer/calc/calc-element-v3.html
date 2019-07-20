@@ -1,0 +1,77 @@
+<link rel="import" href="../polymer/polymer-element.html">
+<link rel="import" href="../iron-input/iron-input.html">
+
+<dom-module id="calc-element">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+    </style>
+    <h2>Calculadora</h2>
+    <span>Oper A:</span>
+    <iron-input  bind-value="{{opa}}"><input value="0" size="5"/></iron-input>
+    <span>[[tipoOper]]</span>
+    <span>Oper B:</span>
+    <iron-input  bind-value="{{opb}}"><input value="0" size="5"/></iron-input>
+    <span>Resultado: </span>
+    <iron-input bind-value="[[resultado]]"> <input size="5"" readOnly> </iron-input>
+    <!-- <span>[[resultado]]</span> -->
+
+    <!-- <span>Binding: [[opa]] [[tipoOper]] [[opb]] = [[resultado]]</span> -->
+
+  </template>
+
+  <script>
+    class CalcElement extends Polymer.Element {
+      static get is() { return 'calc-element'; }
+      //readOnly      reflectToAttribute     notify
+      static get properties() {
+        return {
+          opa: {
+            type: Number, value: 0, readOnly : false, observer: '_opxchanged'
+          },
+          opb : {
+            type : Number, value : 0, readOnly : false, observer: '_opxchanged'
+          },
+          resultado : { type: Number, value : 0, readOnly : false },
+          tipoOper : {type:String, value : '+', readOnly: false, reflectToAttribute : true,
+                      observer : '_tipooperchanged'}
+        };
+      }
+      // ready() {
+      //   super.ready();
+      //   console.log("a: " + this.opa + ", b: " + this.opb + ", tipoOper: " + this.tipoOper);
+      //   console.log(`a: ${this.opa}, b: ${this.opb}, tipoOper: ${this.tipoOper}`);
+      // }
+      _tipooperchanged(newx, old) {
+        console.log(`_tipooperchanged old: ${old} new: ${newx}`);
+      }
+      _opachanged(newx, old) {
+        console.log(`_opachanged old: ${old} new: ${newx}`);
+      }
+      _opbchanged(newx, old) {
+        console.log(`_opbchanged old: ${old} new: ${newx}`);
+      }
+      _opxchanged() {
+        console.log(`_opxchanged: ${this.opa} (${this.tipoOper})  ${this.opb}`);
+        if(this.tipoOper == '+') {
+          this.resultado = parseFloat(this.opa) + parseFloat(this.opb);
+        } else if(this.tipoOper == '-') {
+          this.resultado = parseFloat(this.opa) - parseFloat(this.opb);
+        } else
+        if(this.tipoOper == '*') {
+          this.resultado = parseFloat(this.opa) * parseFloat(this.opb);
+        } else
+        if(this.tipoOper == '/') {
+          this.resultado = parseFloat(this.opa) / parseFloat(this.opb);
+        }
+      }
+      //  attributeChangedCallback(old, nuevo, who) {
+      //    console.log("old, new, who" + old + " " + nuevo + " " + who);
+      // }
+    }
+
+    window.customElements.define(CalcElement.is, CalcElement);
+  </script>
+</dom-module>

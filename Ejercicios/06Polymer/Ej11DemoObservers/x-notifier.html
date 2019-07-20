@@ -75,16 +75,16 @@
         this.$.pbRGB.style.backgroundColor = rgb;
 
         // Apunte07 Dispatch de un Custom Event
-        // var objevent = 	{
-        //     detail: {
-        //       rgbOption: this.rgbOption,
-        //       colorNumber : this.colorNumber
-        //     },
-        //     bubbles: true,
-        //     composed : true
-        //   }
-        //
-        // this.dispatchEvent(new CustomEvent('rgb-changed-event', objevent));
+        var objevent = 	{
+            detail: {
+              rgbOption: this.rgbOption,
+              colorNumber : this.colorNumber
+            },
+            bubbles: true,
+            composed : true
+          }
+
+        this.dispatchEvent(new CustomEvent('rgb-changed-event', objevent));
       }
 
       connectedCallback() {

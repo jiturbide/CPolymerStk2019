@@ -38,7 +38,6 @@
       <script type="text/javascript">
         console.log("Conexion con Firebase");
         var ref = firebase.database().ref();
-
         let _firechatRef = ref;
         let _firebaseApp = ref.database.app;
 
@@ -55,25 +54,25 @@
 
         function freplace() {
           console.log("add()");
-          // var playersRef = firebase.database().ref("cp/");
-          // let cptmp = Math.floor((Math.random() * 10000));
-          //
-          // cpRef.set ({
-          //    '00000': {
-          //       codigopostal: cptmp,
-          //       asentamiento: 'Desconocido',
-          //       ciudad: 'Ciudad de Mexico',
-          //       pais: 'Mexico'
-          //    }
-          // });
+          var cpRef = firebase.database().ref("cp/00000");
+          let cptmp = Math.floor((Math.random() * 10000));
+
+          cpRef.set ({
+             '00001': {
+                codigopostal: cptmp,
+                asentamiento: 'El Vergel',
+                ciudad: 'CDMX',
+                pais: 'Mexico'
+             }
+          });
         }
 
         function fupdate() {
-          var johnRef = firebase.database().ref("cp/narvarte");
-          //
-          // johnRef.update ({
-          //    "number": 10
-          // });
+          var cpRef = firebase.database().ref("cp/00001");
+
+          cpRef.update ({
+             "codigopostal": 1010
+          });
         }
 
         function fpush() {
@@ -82,8 +81,8 @@
 
           let cptmp = Math.floor((Math.random() * 10000));
           let item = {
-               codigopostal: cptmp,
-               asentamiento: 'Desconocido',
+               codigopostal: "08620",
+               asentamiento: 'Los Reyes Iztacalco',
                ciudad: 'Ciudad de Mexico',
                pais: 'Mexico'
             };

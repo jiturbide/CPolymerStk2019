@@ -125,7 +125,7 @@
         <th>Municipio</th>
         <th>Estado</th>
       </tr>
-      <template is="dom-repeat" items="{{codes}}" index-as="index" as='reg'
+      <template is="dom-repeat" items="{{array}}" index-as="index" as='reg'
       filter="_filtrarColoniasPeligrosas"
       sort="{{_sortPor(sortVal)}}"
       >
@@ -181,7 +181,7 @@
       _handleResponse(e) {
         console.log("_handleResponse");
       }
-
+      //Si devuelve true si lo toma en cuenta, false lo descarta
       _filtrarColoniasPeligrosas(cp) {
         // if(cp.municipio.match(/['Iztapalapa' | 'Tlahuac']/i)) {
         let regex = /Tláhuac|Iztapalapa/gi;

@@ -6,7 +6,7 @@
   // localStorage.setItem("testJSON", myJSON);
 
   // Retrieving data:
-  text = localStorage.getItem("testJSON");
+  let text = localStorage.getItem("testJSON");
   var obj = JSON.parse(text);
   document.getElementById("demo").innerHTML = obj.name;
   console.log(obj);

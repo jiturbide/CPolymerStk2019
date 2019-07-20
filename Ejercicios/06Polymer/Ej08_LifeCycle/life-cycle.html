@@ -18,6 +18,7 @@
     </style>
     <p>[[description]]</p>
     <iron-icon icon="star"></iron-icon>
+
   </template>
 
   <script>
@@ -33,9 +34,9 @@
         super();
         //Defer non critical work until after first paint
         console.log("constructor() ..1 " + this.id);
-        Polymer.RenderStatus.afterNextRender(this, function() {
-          console.log("Polymer.RenderStatus.afterNextRender(this, function() " + this.id);
-        });
+        // Polymer.RenderStatus.afterNextRender(this, function() {
+        //   console.log("Polymer.RenderStatus.afterNextRender(this, function() " + this.id);
+        // });
         console.log("constructor() ..2 " + this.id);
       }
 
@@ -66,10 +67,11 @@
         */
         super.disconnectedCallback();
         console.log('disconnectedCallback(): Adios! ' + this.id);
-      }
+
+     }
 
       attributeChangedCallback(old, nuevo, who) {
-        console.log("old, new, who" + old + nuevo + who);
+        console.log("old, new, who" + old + " " + nuevo + " " + who);
       }
 
       static get is() { return "life-cycle"; }
@@ -78,7 +80,8 @@
         return {
           description: {
             type: String,
-            value: 'Ejemplo de Life cycle events'
+            value: 'Ejemplo de Life cycle events',
+            reflectToAttribute: true
           }
         };
       }
@@ -87,7 +90,7 @@
 
     console.log("Termino de script de definicion de componente");
 
-    /*
+    /* * /
           1.x (legacy)    |      2.x
     ----------------------|-----------------------------
         created           |   constructor
@@ -95,7 +98,7 @@
         detached          |   disconnectedCallback
         attributeChanged  |   attributeChangedCallback
         ready             |   ready
-    */
+    /* */
 
 
   </script>

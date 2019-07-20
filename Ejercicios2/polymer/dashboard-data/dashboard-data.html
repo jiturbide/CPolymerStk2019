@@ -1,0 +1,81 @@
+<link rel="import" href="../polymer/polymer-element.html">
+<link rel="import" href="./softtekian-data.html">
+<script src="./SofttekianDM.js" charset="utf-8"></script>
+
+<dom-module id="dashboard-data">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+    </style>
+    <h2>Dashboard de datos de Softtekians</h2>
+    <h3>[[stkarray]]</h3>
+    <softtekian-data id="forma" colorFondo="green"></softtekian-data>
+  </template>
+
+  <script>
+    function _testArreglo() { console.log("Esta no!");}
+
+    class DashboardData extends Polymer.Element {
+      static get is() { return 'dashboard-data'; }
+      static get properties() {
+        return {
+          stkarray: {
+            type: Array,
+            value: [],
+            readOnly : false,
+            notify: false,
+            reflectToAttribute: false
+          }
+        };
+      }
+      constructor() {
+        super();
+        console.log("Dashboard creado");
+
+      }
+
+      ready() {
+        super.ready();
+        //this._testArreglo();
+        //this.$.forma.addEventListener("softtekian-added-event", e => console.log(e));
+      }
+
+      connectedCallback() {
+        super.connectedCallback();
+
+        //Agregamos el Listener para softtekian-added-event
+        // imprimir en el log los datos que llegan
+
+        this.$.forma.addEventListener("softtekian-added-event", e => console.log(e));
+
+      }
+
+
+      _testArreglo() {
+        let s = new SofttekianDM('JLuis', "JLIL", "jose.iturbide@softtek.com");
+        s.printInfo();
+        this.stkarray.push(s); //console.log(this.stkarray);
+
+        let s1 = new SofttekianDM('Benito', "BEN1", "benito.bodoque@softtek.com");
+        this.stkarray.unshift(s1);
+
+        let s2 = new SofttekianDM('Cucho', 'CUCH', 'cucho@softtek.com');
+        this.stkarray.splice(0,0,s2);
+        // 0, 1, 2, ----> 3
+        let s3 = new SofttekianDM('Demostenes', "DEMO", "demostenes@softtek.com", "Tartamudear");
+        this.stkarray[this.stkarray.length] = s3;
+        //this.notifyPath('stkarray');
+
+        let s4 = new SofttekianDM('Espanto', 'ESP0', 'espanto@softtek.com', 'Enamorar');
+        this.push('stkarray', s4);
+
+        console.log(this.stkarray);
+      }
+
+    }
+
+    window.customElements.define(DashboardData.is, DashboardData);
+  </script>
+</dom-module>

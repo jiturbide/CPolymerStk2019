@@ -1,0 +1,64 @@
+<link rel="import" href="../polymer/polymer-element.html">
+<link rel="import" href="../iron-input/iron-input.html">
+
+<dom-module id="calc-element">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+    </style>
+    <h2>Calculadora</h2>
+    <p>Operando A</p>
+    <iron-input  bind-value="{{opa}}"><input value="0"/></iron-input>
+    <p>[[operacion]]</p>
+    <p>Operando B</p>
+    <iron-input  bind-value="{{opb}}"><input value="0"/></iron-input>
+
+    <p>Resultado:</p>
+    <iron-input > <input pattern="\d{5}"> </iron-input>
+
+    <p>Binding</p> <br>
+    [[opa]] + [[opb]] = [[resultado]]
+  </template>
+
+  <script>
+    class CalcElement extends Polymer.Element {
+      static get is() { return 'calc-element'; }
+      //readOnly      reflectToAttribute     notify
+      static get properties() {
+        return {
+          operacion : {type:String, value: '+', readOnly:true, reflectToAttribute: true},
+          opa: {
+            type: Number, value: 0, readOnly : false, observer: '_opxchanged'
+          },
+          opb : {
+            type : Number, value : 0, readOnly : false, observer: '_opxchanged'
+          },
+          resultado : { type: Number, value : 0, readOnly : true }
+        };
+      }
+      ready() {
+        super.ready();
+        console.log("a: " + this.opa + ", b: " + this.opb);
+        console.log(`a: ${this.opa}, b: ${this.opb}, op: ${this.operacion}`);
+      }
+
+      _opachanged(newx, old) {
+        console.log(`_opachanged old: ${old} new: ${newx}`);
+      }
+      _opbchanged(newx, old) {
+        console.log(`_opbchanged old: ${old} new: ${newx}`);
+      }
+      _opxchanged() {
+        console.log(`_opxchanged old: ${this.opa} new: ${this.opb}`);
+      }
+
+      attributeChangedCallback(old, nuevo, who) {
+        console.log("old, new, who" + old + " " + nuevo + " " + who);
+      }
+    }
+
+    window.customElements.define(CalcElement.is, CalcElement);
+  </script>
+</dom-module>

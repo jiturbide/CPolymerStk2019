@@ -1,0 +1,212 @@
+<link rel="import" href="../../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../../bower_components/paper-icon-button/paper-icon-button.html">
+<link rel="import" href="../../bower_components/iron-icons/social-icons.html">
+<link rel="import" href="../../bower_components/iron-icons/communication-icons.html">
+<link rel="import" href="../../bower_components/iron-icons/editor-icons.html">
+<link rel="import" href="../../bower_components/iron-icons/editor-icons.html">
+<link rel="import" href="../../bower_components/iron-icons/iron-icons.html">
+<link rel="import" href="../../bower_components/paper-dialog/paper-dialog.html">
+
+<link rel="import" href="../../bower_components/paper-tooltip/paper-tooltip.html">
+<link rel="import" href="../../bower_components/paper-dialog-scrollable/paper-dialog-scrollable.html">
+
+
+<dom-module id="form-element">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+
+      h2 {
+        color: #283593;
+        text-align: center;
+        font-size: 30px;
+        padding: 5px;
+      }
+
+      paper-dialog {
+        width: 400px;
+      }
+
+      paper-dialog-scrollable {
+        width: 400px;
+        padding: 0;
+      }
+
+      iron-icon {
+        margin-right: 5px;
+        color: #283593;
+      }
+
+      paper-icon-button {
+        margin-right: 15px;
+      }
+
+      paper-button {
+        color: #283593;
+      }
+
+      paper-dialog.warning {
+       border: 1px solid;
+       border-color: #dd2c00;
+       background-color: #f1f8e9;
+       color: #dd2c00;
+      }
+
+      paper-button.btn-warning {
+        color: #dd2c00;
+      }
+
+      .dialog_actions {
+        float: right;
+      }
+
+      @media (max-width: 460px) {
+        paper-dialog {
+          width: 300px;
+        }
+
+        paper-dialog-scrollable {
+          width: 300px;
+        }
+      }
+
+    </style>
+
+    <paper-icon-button icon="social:person-add" id="adduser" raised on-click="_opendialog"></paper-icon-button>
+    <paper-tooltip id="adduser_tooltip" for="adduser">
+      Agregar Usuario
+    </paper-tooltip>
+
+    <paper-dialog id="dialog" with-backdrop>
+      <h2>Nuevo Contacto</h2>
+      <paper-dialog-scrollable>
+        <paper-input
+          id="cname"
+          label="Nombre"
+          auto-validate pattern="^[a-zA-Z ]*$"
+          error-message="Ingresa solo letras">
+          <iron-icon icon="social:person" slot="prefix"></iron-icon>
+        </paper-input>
+        <paper-input
+          id="cis"
+          label="IS"
+          auto-validate pattern="^[a-zA-Z]*$"
+          error-message="Ingresa solo letras y sin espacios">
+          <iron-icon icon="editor:short-text" slot="prefix"></iron-icon>
+        </paper-input>
+        <paper-input
+          id="cemail"
+          label="Email"
+          auto-validate pattern="^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$"
+          error-message="Ingresa un email valido">
+          <iron-icon icon="communication:email" slot="prefix"></iron-icon>
+        </paper-input>
+        <paper-input
+          id="cphone"
+          label="Telefono"
+          auto-validate pattern="^[0-9\s]*$"
+          error-message="Ingresa un formato valido"
+          >
+          <iron-icon icon="communication:call" slot="prefix"></iron-icon>
+        </paper-input>
+        <paper-input
+          id="carroba"
+          label="Red Social"
+          auto-validate pattern="(?:@)([A-Za-z0-9_](?:(?:[A-Za-z0-9_]|(?:\.(?!\.))){0,28}(?:[A-Za-z0-9_]))?)"
+          error-message="Ingresa un formato valido > @user_name"
+          >
+          <iron-icon icon="social:sentiment-satisfied" slot="prefix"></iron-icon>
+        </paper-input>
+        <paper-input
+          id="cnota"
+          label="Notas"
+          auto-validate pattern="^.{1,50}$"
+          error-message="Rebasaste el limite de 50 caracteres"
+          >
+          <iron-icon icon="icons:assignment" slot="prefix"></iron-icon>
+        </paper-input>
+      </paper-dialog-scrollable>
+      <div class="dialog_actions">
+        <paper-button dialog-dismiss>Cancelar</paper-button>
+        <paper-button on-click="_addtofirebase">Aceptar</paper-button>
+      </div>
+    </paper-dialog>
+
+
+    <paper-dialog id="warning" class="warning">
+      <h3>Existen campos vacios o invalidos</h3>
+      <div class="buttons">
+        <paper-button class="btn-warning" dialog-dismiss autofocus>Aceptar</paper-button>
+      </div>
+    </paper-dialog>
+
+  </template>
+
+  <script>
+    class FormElement extends Polymer.Element {
+      static get is() { return 'form-element'; }
+
+      static get properties() {
+        return {
+          prop1: {
+            type: String,
+            value: 'FormElement'
+          }
+        };
+      }
+
+      _opendialog() {
+        this.$.dialog.open();
+      }
+
+      _addtofirebase(e) {
+        // ---
+
+        if(
+          this.$.cname.value === '' || this.$.cis.value === '' || this.$.cis.value === '' || this.$.cemail.value === '' ||
+          this.$.cphone.value === '' || this.$.carroba.value === '' || this.$.cnota.value === ''){
+            this.$.warning.open();
+          console.log('Existen campos vacios o invalidos');
+        } else {
+        // ----
+          this.dispatchEvent(new CustomEvent('contact-info', {
+            bubbles: true,
+            composed: true,
+            detail: {
+              nombre: this.$.cname.value,
+              is: this.$.cis.value,
+              email: this.$.cemail.value,
+              imageUrl: 'https://picsum.photos/300/300/?random',
+              socialNet: this.$.carroba.value,
+              telefono: this.$.cphone.value,
+              nota: this.$.cnota.value
+            }
+          }));
+
+          this._limpiacampos();
+          this._closedialog();
+
+        }
+
+      }
+
+      _limpiacampos() {
+        this.$.cname.value = '';
+        this.$.cis.value = '';
+        this.$.cemail.value = '';
+        this.$.cphone.value = '';
+        this.$.carroba.value = '';
+        this.$.cnota.value = '';
+      }
+
+      _closedialog() {
+        this.$.dialog.close();
+      }
+
+    } // End class
+
+    window.customElements.define(FormElement.is, FormElement);
+  </script>
+</dom-module>

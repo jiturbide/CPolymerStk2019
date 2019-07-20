@@ -7,11 +7,16 @@
       <label for="txttuedad">Tu edad: </label>
       <iron-input id="txttuedad" bind-value="{{tuedad}}" >
         <input placeholder="Tu edad" size='10'>
-      </iron-input> <br>
+      </iron-input>
+
+      <span>[[analisisTuEdad(tuedad)]]</span><br>
+
       <label for="txtsuedad">Su edad: </label>
       <iron-input id="txttuedad" bind-value="{{suedad}}" >
         <input placeholder="Su edad" size='10'>
-      </iron-input> <br>
+      </iron-input>
+      <span>[[analisisSuEdad(suedad)]]</span><br>
+
       <label for="txtmatch1">Match Tu para Ella: </label>
       <iron-input id="txtmatch1" bind-value="[[analisisCompatibilidad(tuedad, suedad)]]" >
         <input placeholder="resultado" size='50'>
@@ -31,13 +36,15 @@
             type: Number,
             value : 20,
             notify : false,
-            readOnly : false
+            readOnly : false,
+            observer: 'analisisTuEdad'
           },
           suedad : {
             type: Number,
             value : 20,
             notify : false,
-            readOnly : false
+            readOnly : false,
+            observer: 'analisisSuEdad'
           }
         };
       }
@@ -52,22 +59,22 @@
       analisisTuEdad(x) {
         if(x > 9) {
           if(x < 20) {
-            console.log("TU Tas chavo");
+            return "TU Tas chavo";
           } else if(x > 50) {
-            console.log("TU Tas Ruco");
+            return "TU Tas Ruco";
           } else {
-            console.log("TU Estas a buena edad");
+            return "TU Estas a buena edad";
           }
         }
       }
       analisisSuEdad(y) {
         if(y > 9) {
           if(y < 18) {
-            console.log("Ella esta chavita ");
+            return "Ella esta chavita ";
           } else if(y > 40) {
-            console.log("Cuidado, Ella esta experimentada");
+            return "Cuidado, Ella esta experimentada";
           } else {
-            console.log("Ella Good!");
+            return "Ella Good!";
           }
         }
       }

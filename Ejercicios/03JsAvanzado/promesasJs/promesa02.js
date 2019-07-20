@@ -7,22 +7,22 @@
     console.log('Inicial');
 
     resolver();
-})
-.then(() => {
-    throw new Error('Algo falló');
+  })
+  .then(() => {
+      throw new Error('Algo falló');
 
-    console.log('Haz esto');
-})
-.catch(() => {
-    console.log('Manejando el error!');
-})
-.then(() => {
-    console.log('Haz esto sin que importe lo que sucedió antes');
-});
+      console.log('Haz esto');
+  })
+  .catch(() => {
+      console.log('Manejando el error!');
+  })
+  .then(() => {
+      console.log('Haz esto sin que importe lo que sucedió antes');
+  });
 
-let resolver = () => {
-  console.log("Procesando resultados ...");
-}
+  let resolver = () => {
+    console.log("Procesando resultados ...");
+  }
 
-}
+  }
 )();

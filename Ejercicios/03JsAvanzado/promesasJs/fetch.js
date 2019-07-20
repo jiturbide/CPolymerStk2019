@@ -8,7 +8,7 @@
   const API_URL = 'https://api-codigos-postales.herokuapp.com/v2/codigo_postal/09880 ';
 
   const control = document.querySelector('#article0');
-
+  
   fetch(API_URL)
     .then(function(response) {
       return response.json();

@@ -15,6 +15,7 @@
   });
 
   console.log("Lanzamiento ejecucion promesa");
+
   promise.then( function(result) {
     console.log("ejecucion promesa:" + result);
   }, function(err) {

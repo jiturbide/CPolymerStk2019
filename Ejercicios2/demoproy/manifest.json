@@ -1,0 +1,7 @@
+{
+  "name": "polymer-agenda",
+  "short_name": "polymer-agenda",
+  "description": "Poryecto final agenda polymer softtek",
+  "start_url": "/",
+  "display": "standalone"
+}

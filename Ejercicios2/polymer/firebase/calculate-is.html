@@ -1,0 +1,79 @@
+<link rel="import" href="../polymer/polymer-element.html">
+<link rel="import"  href="../bower_components/iron-input/iron-input.html">
+<link rel="import" href="../bower_components/paper-button/paper-button.html">
+
+<dom-module id="calculate-is">
+
+  <template>
+    <style>
+    iron-input[invalid] > input {
+        border: 1px solid red;
+        background-color: #FFCDD2;
+      }
+    </style>
+
+    <label for="txtnombre">Nombre: </label>
+    <iron-input id="txtnombre" bind-value="{{name}}" allowed-pattern="[\w\s]" auto-validate>
+      <input pattern="[\w\s]+" placeholder="Escribe aqui tu Nombre">
+    </iron-input>
+    <label for="txtis">Tu IS: </label>
+    <iron-input id="txtis" bind-value="{{issofttek}}" allowed-pattern="[A-Z]" auto-validate>
+      <input pattern="[A-Z]{4}" placeholder="Escribe aqui tu IS">
+    </iron-input>
+    <label for="txtemail">Email: </label>
+    <iron-input id="txtis" bind-value="{{email}}" >
+      <input placeholder="Escribe aqui tu email">
+    </iron-input>
+    <paper-button id="btnAgregar" on-click="_softtekianAdded">Agregar</paper-button>
+  </template>
+
+  <script>
+    class CalculateIs extends Polymer.Element {
+      static get is() { return "calculate-is"; }
+      constructor() {
+        super();
+      }
+      static get properties() {
+        return {
+          name: {
+            type: String,
+            value: 'NONE',
+            readOnly : false,
+            notify : false
+          },
+          email : {
+            type: String,
+            value: 'NOT-SET',
+            readOnly : false,
+            notify : false
+          },
+          issofttek : {
+            type: String,
+            value: 'NOT-SET',
+            readOnly : false,
+            notify : false
+          }
+        };
+      } //fin getProperties
+
+      _softtekianAdded() {
+        var objevent = 	{
+            detail: {
+              softtekian : {
+                name: this.name,
+                email : this.email,
+                is : this.issofttek
+              }
+            },
+            bubbles: true,
+            composed : true
+          }
+        console.log(objevent);
+        this.dispatchEvent(new CustomEvent('softtekian-added-event', objevent));
+      }
+
+    }
+    customElements.define(CalculateIs.is, CalculateIs);
+  </script>
+
+</dom-module>

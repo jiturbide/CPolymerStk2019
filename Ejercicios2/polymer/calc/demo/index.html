@@ -17,14 +17,41 @@
       </style>
     </custom-style>
   </head>
-  <body>
+  <body onalgocambioevent="flog();">
     <div class="vertical-section-container centered">
       <h3>Basic calc-element demo</h3>
       <demo-snippet>
         <template>
-          <calc-element operacion="+"></calc-element>
+          <calc-element tipo-oper="+" ></calc-element>
+          <calc-element tipo-oper="-" ></calc-element>
+          <calc-element tipo-oper="*" ></calc-element>
+          <calc-element tipo-oper="/" ></calc-element>
+          <calc-element id="pow" tipo-oper="comparacion"></calc-element>
         </template>
       </demo-snippet>
     </div>
+
+    <script type="text/javascript">
+        let c = document.getElementById("pow");
+        //console.log(c);
+        //c.tipo-oper = "squareRoot";
+        c.setAttribute("tipo-oper","derivada");
+
+        let oper = "Integral";
+        //c["tipo-oper"] = "squareRoot";
+
+        // c.addEventListener("opa-changed",
+        //      e => {console.log(e);
+        //            let ce = new CustomEvent("opaevent", e.detail);
+        //            document.dispatchEvent(ce)} );
+        //document.addEventListener("opa-changed", e => console.log(e));
+        // document.addEventListener("opaevent", e => console.log(e));
+
+        document.addEventListener("algocambioevent", e => console.log(e));
+
+        function flog(e) {
+          console.log("flog: " + e);
+        }
+    </script>
   </body>
 </html>

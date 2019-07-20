@@ -7,7 +7,8 @@
   //const API_URL = 'https://jsonplaceholder.typicode.com/todos/1';
   const API_URL = 'http://127.0.0.1:8887/Ejercicios/03JsAvanzado/promesasJs/datos.json';
 
-  const control = document.querySelector('#article0');
+  const control = document.querySelector('#contenido');
+  //const control = document.getElementById('contenido');
 
    fetch(API_URL)
      .then(response => response.json())

@@ -1,0 +1,497 @@
+<link rel="import" href="../../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../../bower_components/polymer/lib/elements/dom-repeat.html">
+
+<!-- Para uso de Firebase -->
+<link rel="import" href="../../bower_components/polymerfire/polymerfire.html">
+
+<!-- Iron Elements -->
+<link rel="import" href="../../bower_components/iron-icons/social-icons.html">
+<link rel="import" href="../../bower_components/iron-icons/communication-icons.html">
+<link rel="import" href="../../bower_components/iron-image/iron-image.html">
+
+<!-- Paper Elements  -->
+<link rel="import" href="../../bower_components/paper-icon-button/paper-icon-button.html">
+<link rel="import" href="../../bower_components/paper-card/paper-card.html">
+<link rel="import" href="../../bower_components/paper-toolbar/paper-toolbar.html">
+<link rel="import" href="../../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../../bower_components/paper-input/paper-input.html">
+<link rel="import" href="../../bower_components/paper-tooltip/paper-tooltip.html">
+<link rel="import" href="../../bower_components/paper-dialog/paper-dialog.html">
+<link rel="import" href="../../bower_components/paper-dialog-scrollable/paper-dialog-scrollable.html">
+
+<!-- Form Elements -->
+<link rel="import" href="../form-element/form-element.html">
+
+<dom-module id="main-element">
+  <template>
+
+    <!-- Configuración para la conexion con Firebase -->
+    <firebase-app
+      name="agenda-polymer"
+      auth-domain= "agenda-polymer.firebaseapp.com"
+      database-url="https://agenda-polymer.firebaseio.com"
+      api-key="AIzaSyAkr5ef0Ck1D9BieDbxlz2lGMqMUPZR-mU"
+      storage-bucket="agenda-polymer.appspot.com"
+      messaging-sender-id="218878625439">
+    </firebase-app>
+
+    <!-- Obtenemos los datos de Firebase y los guardamos en firebaseDatos -->
+    <firebase-query
+      id="query"
+      app-name="agenda-polymer"
+      path="/contactos"
+      data="{{firebaseDatos}}">
+    </firebase-query>
+
+    <!-- Estilos CSS  -->
+    <style>
+      .container {
+        position: relative;
+        min-height: 100vh;
+        font-family: Roboto;
+      }
+
+      .header {
+        box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.3);
+        /* z-index: 1; */
+      }
+
+      .cards_container {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 20px;
+      }
+
+      .title {
+        letter-spacing: 1px;
+        margin-left: 15px;
+        padding: 5px;
+      }
+
+      .avatar {
+        height: 40px;
+        width: 40px;
+        border-radius: 20px;
+        box-sizing: border-box;
+        vertical-align: middle;
+        background-color: #DDD;
+      }
+
+      .footer {
+        display:none;
+        position: absolute;
+        width: 100vw;
+        bottom: 0;
+      }
+
+      .footer_title, .footer_autor {
+        text-align: center;
+        margin: 0;
+        color: #737373;
+      }
+
+      .footer_title {
+        font-size: 16px;
+        margin-top: 5px;
+        margin-bottom: 5px;
+      }
+
+      .footer_autor {
+        font-size: 14px;
+        margin-bottom: 5px;
+      }
+
+      iron-list {
+        padding-top: 50px;
+        --iron-list-items-container: {
+          max-width: 800px;
+          margin: auto;
+          margin-top: 60px;
+          margin-bottom: 60px;
+          border-bottom: 1px solid #ddd;
+        };
+      }
+
+      .item {
+        @apply --layout-horizontal;
+        padding: 20px;
+        background-color: white;
+        border: 1px solid #ddd;
+        cursor: pointer;
+        margin-bottom: 10px;
+        width: 600px;
+      }
+
+      .avatar {
+        height: 40px;
+        width: 40px;
+        border-radius: 20px;
+        background-color: red;
+      }
+
+      .pad {
+        padding: 0 16px;
+        @apply --layout-flex;
+        @apply --layout-vertical);
+      }
+
+      .primary {
+        font-size: 18px;
+        font-weight: bold;
+      }
+
+      .shortText, .longText {
+        font-size: 16px;
+      }
+
+      .graytext {
+        color: gray;
+      }
+
+      .longText {
+        display: none;
+      }
+
+      .item:hover .shortText::after {
+        /* content: ' [+]'; */
+        color: gray;
+      }
+
+      .item-expanded:hover .shortText::after {
+        content: '';
+      }
+
+      .item-expanded .longText {
+        display: block;
+      }
+
+      .item-expanded .primary {
+        display: block;
+      }
+
+      .item-expanded:hover .longText::after {
+        /* content: ' [–]'; */
+      }
+
+      .spacer {
+        @apply --layout-flex;
+      }
+
+      @media (max-width: 460px) {
+        paper-toolbar .bottom.title {
+          font-size: 14px;
+        }
+
+        paper-dialog.up_dialog {
+          width: 300px;
+        }
+
+        paper-dialog-scrollable.up_scrollable {
+          width: 300px;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .item {
+          width: 350px;
+        }
+      }
+
+      @media (min-width: 480px) {
+        .item {
+          width: 400px;
+        }
+      }
+
+      @media (min-width: 600px) {
+        .item {
+          width: 550px;
+        }
+      }
+
+      @media (min-width: 800px) {
+        .item {
+          width: 600px;
+        }
+      }
+
+      paper-icon-button.icon-blue {
+        color: #304ffe;
+        margin-right: 10px;
+        width: 35px;
+        height: 35px;
+      }
+
+      paper-icon-button.icon-red {
+        color: #dd2c00;
+        width: 35px;
+        height: 35px;
+      }
+
+      .text-bold {
+        font-weight: 400;
+        font-size: 16px;
+        color: #304ffe;
+      }
+
+       paper-dialog.warning {
+        border: 1px solid;
+        border-color: #dd2c00;
+        background-color: #f1f8e9;
+        color: #dd2c00;
+       }
+
+       paper-button.btn-warning {
+         color: #dd2c00;
+       }
+
+      /* Estilos para update dialog  */
+      .up_title {
+        color: #283593;
+        text-align: center;
+        font-size: 30px;
+        padding: 5px;
+      }
+
+      .up_dialog {
+        width: 400px;
+      }
+
+      paper-dialog-scrollable {
+        width: 400px;
+        padding: 0;
+      }
+
+      .up_icon{
+        margin-right: 5px;
+        color: #283593;
+      }
+
+      .up_actions {
+        float: right;
+        color: #283593;
+      }
+
+    </style>
+
+    <div class="container" id="container">
+
+      <!-- Paper toolbar -->
+      <paper-toolbar class="header">
+        <paper-icon-button slot="top" icon="polymer"></paper-icon-button>
+        <span slot="top" class="title">Agenda Polymer</span>
+        <form-element slot="top" on-contact-info="add"></form-element>
+      </paper-toolbar>
+
+      <div class="cards_container" id="cards_container">
+        <iron-list id="list" selection-enabled multi-selection>
+          <template is="dom-repeat" items="{{firebaseDatos}}" as="contact">
+            <div>
+              <div class="item" >
+                <iron-image class="avatar" sizing="cover" src="[[contact.imageUrl]]"></iron-image>
+                <div id="itemvista"  class="pad" on-click="cambiaVista">
+                  <div class="primary" >
+                    [[contact.nombre]]
+                  </div>
+                  <div class="shortText">
+                    <span class="text-bold">Telefono:</span>
+                    [[contact.telefono]]
+                  </div>
+                  <div class="longText">
+                    <span class="text-bold">Email:</span>
+                    [[contact.email]]
+                  </div>
+                  <div class="longText">
+                    <span class="text-bold">IS:</span>
+                    [[contact.is]]</div>
+                  <div class="longText">
+                    <span class="text-bold">Social:</span>
+                    [[contact.socialNet]]</div>
+                  <div class="longText graytext">
+                    <span class="text-bold">Notas:</span>
+                    [[contact.nota]]</div>
+                </div>
+                <paper-icon-button class="icon-blue" id="btn-create" contact=[[contact]] icon="icons:create" on-tap="update"></paper-icon-button>
+                <paper-icon-button class="icon-red" id="btn_delete" contact=[[contact]] icon="icons:delete" on-tap="confirmar"></paper-icon-button>
+                <paper-tooltip for="btn_delete" position="top" offset="0">Eliminar Contacto</paper-tooltip>
+                <paper-tooltip for="btn-create" position="top" offset="0">Editar Contacto</paper-tooltip>
+              </div>
+            </div>
+          </template>
+        </iron-list>
+      </div>
+
+      <!-- paper footer -->
+      <!-- <div class="footer">
+        <p class="footer_title">Softtek - Academia Polymer 2019</p>
+        <p class="footer_autor">Fernando González Castro</p>
+      </div> -->
+
+    </div> <!-- End container-->
+
+    <paper-dialog id="warning" class="warning">
+      <h2>¿Eliminar Contacto?</h2>
+      <p>El contacto se eliminara permanentemente.</p>
+      <div class="buttons">
+        <paper-button class="btn-warning" dialog-dismiss>Cancelar</paper-button>
+        <paper-button class="btn-warning" on-tap="remove" autofocus>Aceptar</paper-button>
+      </div>
+    </paper-dialog>
+
+    <!-- Dialog form for update a contact  -->
+
+    <paper-dialog id="updatedialog" class="up_dialog" with-backdrop>
+      <h2 class="up_title">Actualizar Contacto</h2>
+      <paper-dialog-scrollable class="up_scrollable">
+        <paper-input
+          id="cname"
+          label="Nombre"
+          auto-validate pattern="^[a-zA-Z ]*$"
+          error-message="Ingresa solo letras">
+          <iron-icon icon="social:person" class="up_icon" slot="prefix"></iron-icon>
+        </paper-input>
+        <paper-input
+          id="cis"
+          label="IS"
+          auto-validate pattern="^[a-zA-Z]*$"
+          error-message="Ingresa solo letras y sin espacios">
+          <iron-icon icon="editor:short-text" class="up_icon" slot="prefix"></iron-icon>
+        </paper-input>
+        <paper-input
+          id="cemail"
+          label="Email"
+          auto-validate pattern="^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$"
+          error-message="Ingresa un email valido">
+          <iron-icon icon="communication:email" class="up_icon" slot="prefix"></iron-icon>
+        </paper-input>
+        <paper-input
+          id="cphone"
+          label="Telefono"
+          auto-validate pattern="^[0-9\s]*$"
+          error-message="Ingresa un formato valido"
+          >
+          <iron-icon icon="communication:call" class="up_icon" slot="prefix"></iron-icon>
+        </paper-input>
+        <paper-input
+          id="carroba"
+          label="Red Social"
+          auto-validate pattern="(?:@)([A-Za-z0-9_](?:(?:[A-Za-z0-9_]|(?:\.(?!\.))){0,28}(?:[A-Za-z0-9_]))?)"
+          error-message="Ingresa un formato valido > @user_name"
+          >
+          <iron-icon icon="social:sentiment-satisfied" class="up_icon" slot="prefix"></iron-icon>
+        </paper-input>
+        <paper-input
+          id="cnota"
+          label="Notas"
+          auto-validate pattern="^.{1,50}$"
+          error-message="Rebasaste el limite de 20 caracteres"
+          >
+          <iron-icon icon="icons:assignment" class="up_icon" slot="prefix"></iron-icon>
+        </paper-input>
+      </paper-dialog-scrollable>
+      <div class="up_actions">
+        <paper-button dialog-dismiss>Cancelar</paper-button>
+        <paper-button on-click="updateToFirebae">Aceptar</paper-button>
+      </div>
+    </paper-dialog>
+
+    <!-- Dialog form for update a contact  -->
+
+  </template>
+
+  <script>
+    (function MainElement(customElements) {
+      'use strict'
+      class MainElement extends Polymer.Element {
+        constructor() {
+          super();
+        }
+
+        static get is() { return 'main-element'; }
+        static get properties() {
+          return {
+            firebaseDatos: {
+              type: Object
+            },
+            nuevocontacto: {
+              type: Object
+            },
+            mandakey: {
+              type: String,
+              value: ''
+            },
+            updatekey: {
+              type: String,
+              value: ''
+            }
+
+          };
+        } // Termina properties
+
+        cambiaVista = (e) => e.currentTarget.classList.toggle('item-expanded');
+
+        add = (e) => this.$.query.ref.push(e.detail);
+
+        confirmar(e) {
+          this.mandakey = e.currentTarget.contact.$key;
+          this.$.warning.open();
+        }
+
+        update(e) {
+          let contacto = e.currentTarget.contact;
+          this.$.updatedialog.open();
+          this.$.cname.value = contacto.nombre;
+          this.$.cis.value = contacto.is;
+          this.$.cemail.value = contacto.email;
+          this.$.cphone.value = contacto.telefono;
+          this.$.carroba.value = contacto.socialNet;
+          this.$.cnota.value = contacto.nota;
+          // console.log('Boton update funcion update() ');
+          let key = e.currentTarget.contact.$key;
+          this.updatekey = key;
+          console.log('Te mando un id ' + key);
+          // console.log('Datos contacto seleccionado: ' + contacto.nombre);
+        }
+
+        remove(){
+          this.$.query.ref.child(this.mandakey).remove();
+          this.$.warning.close();
+        }
+
+        updateToFirebae() {
+          console.log('update to firebase funciona.');
+          console.log('El id que llego es: ' + this.updatekey);
+          this.$.query.ref.child(this.updatekey).update({
+            nombre: this.$.cname.value,
+            is: this.$.cis.value,
+            email: this.$.cemail.value,
+            socialNet: this.$.carroba.value,
+            telefono: this.$.cphone.value,
+            imageUrl: 'https://picsum.photos/300/200',
+            nota: this.$.cnota.value
+          });
+
+          this._limpiacampos();
+          this._closedialog();
+        }
+
+        _limpiacampos() {
+          this.$.cname.value = '';
+          this.$.cis.value = '';
+          this.$.cemail.value = '';
+          this.$.cphone.value = '';
+          this.$.carroba.value = '';
+          this.$.cnota.value = '';
+        }
+
+        _closedialog() {
+          this.$.updatedialog.close();
+        }
+      } // Termina la clase
+
+      customElements.define(MainElement.is, MainElement);
+    })(window.customElements);
+  </script>
+</dom-module>
